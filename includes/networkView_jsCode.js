@@ -11,7 +11,6 @@ $(function(){ // on dom ready
        * Cellular components, Publications, Biological Processes, Pathways, Reactions, Proteins, Protein Domains,
        * Trait Ontologies, Enzyme Classifications or Molecular Functons. **/
       nodes: [
-<<<<<<< HEAD
         { data: { id: 'n1', value: 'AT5G4893i' , conceptType: 'Gene', conceptShape: 'triangle', conceptColor: 'cyan', visibleDisplay: 'element' } , "group": "nodes" },
         { data: { id: 'n2', value: 'AT5G1470i' , conceptType: 'Gene', conceptShape: 'triangle', conceptColor: 'cyan', visibleDisplay: 'element' } , "group": "nodes" },
         { data: { id: 'n3', value: 'Lignin formation' , conceptType: 'Compound', conceptShape: 'heptagon', conceptColor: 'teal', visibleDisplay: 'element' } , "group": "nodes" },
@@ -40,68 +39,38 @@ $(function(){ // on dom ready
         { data: { id: 'n26', value: 'DFR' , conceptType: 'Protein', conceptShape: 'ellipse', conceptColor: 'red', visibleDisplay: 'none' } , "group": "nodes" },
         { data: { id: 'n27', value: 'DFR' , conceptType: 'Protein', conceptShape: 'ellipse', conceptColor: 'red', visibleDisplay: 'none' } , "group": "nodes" },
         { data: { id: 'n28', value: 'A1' , conceptType: 'Protein', conceptShape: 'ellipse', conceptColor: 'red', visibleDisplay: 'none' } , "group": "nodes" },
-=======
-        { data: { id: 'n1', value: 'AT5G4893i' , conceptType: 'Gene', conceptShape: 'triangle', conceptColor: 'cyan', visibleDisplay: 'element' } , group: 'nodes' },
-        { data: { id: 'n2', value: 'AT5G1470i' , conceptType: 'Gene', conceptShape: 'triangle', conceptColor: 'cyan', visibleDisplay: 'element' } , group: 'nodes' },
-        { data: { id: 'n3', value: 'Lignin formation' , conceptType: 'Compound', conceptShape: 'heptagon', conceptColor: 'teal', visibleDisplay: 'element' } , group: 'nodes' },
-        { data: { id: 'n4', value: 'Lignin content' , conceptType: 'TraitOntology', conceptShape: 'pentagon', conceptColor: 'yellow', visibleDisplay: 'element' } , group: 'nodes' },
-        { data: { id: 'n5', value: 'PMID:17237352' , conceptType: 'Publication', conceptShape: 'rectangle', conceptColor: 'orange', visibleDisplay: 'element' } , group: 'nodes' },
-        { data: { id: 'n6', value: 'PMID:15161961' , conceptType: 'Publication', conceptShape: 'rectangle', conceptColor: 'orange', visibleDisplay: 'element' } , group: 'nodes' },
-        { data: { id: 'n7', value: 'PMID:17163881' , conceptType: 'Publication', conceptShape: 'rectangle', conceptColor: 'orange', visibleDisplay: 'element' } , group: 'nodes' },
-        { data: { id: 'n8', value: 'PMID:20511296' , conceptType: 'Publication', conceptShape: 'rectangle', conceptColor: 'orange', visibleDisplay: 'element' } , group: 'nodes' },
-        { data: { id: 'n9', value: 'PMID:21251001' , conceptType: 'Publication', conceptShape: 'rectangle', conceptColor: 'orange', visibleDisplay: 'element' } , group: 'nodes' },
-        { data: { id: 'n10', value: 'AT5G1470' , conceptType: 'Protein', conceptShape: 'ellipse', conceptColor: 'red', visibleDisplay: 'element' } , group: 'nodes' },
-        { data: { id: 'n11', value: 'POPTR_0001s34880' , conceptType: 'Protein', conceptShape: 'ellipse', conceptColor: 'red', visibleDisplay: 'element' } , group: 'nodes' },
-        { data: { id: 'n12', value: 'POPTR_0001s34880' , conceptType: 'Gene', conceptShape: 'triangle', conceptColor: 'cyan', visibleDisplay: 'element' } , group: 'nodes' },
-        { data: { id: 'n13', value: 'NmrA' , conceptType: 'ProteinDomain', conceptShape: 'pentagon', conceptColor: 'grey', visibleDisplay: 'none' } , group: 'nodes' },
-        { data: { id: 'n14', value: 'Polysacc_synt_2' , conceptType: 'ProteinDomain', conceptShape: 'pentagon', conceptColor: 'grey', visibleDisplay: 'none' } , group: 'nodes' },
-        { data: { id: 'n15', value: 'adh_short' , conceptType: 'ProteinDomain', conceptShape: 'pentagon', conceptColor: 'grey', visibleDisplay: 'none' } , group: 'nodes' },
-        { data: { id: 'n16', value: '3Beta_HSD' , conceptType: 'ProteinDomain', conceptShape: 'pentagon', conceptColor: 'grey', visibleDisplay: 'none' } , group: 'nodes' },
-        { data: { id: 'n17', value: 'Epimerase' , conceptType: 'ProteinDomain', conceptShape: 'pentagon', conceptColor: 'grey', visibleDisplay: 'none' } , group: 'nodes' },
-        { data: { id: 'n18', value: 'AT5G48930' , conceptType: 'CellularComponent', conceptShape: 'pentagon', conceptColor: 'lightGreen', visibleDisplay: 'none' } , group: 'nodes' },
-        { data: { id: 'n19', value: 'DFR' , conceptType: 'Protein', conceptShape: 'ellipse', conceptColor: 'red', visibleDisplay: 'none' } , group: 'nodes' },
-        { data: { id: 'n20', value: 'DFR' , conceptType: 'Protein', conceptShape: 'ellipse', conceptColor: 'red', visibleDisplay: 'none' } , group: 'nodes' },
-        { data: { id: 'n21', value: 'DFR' , conceptType: 'Protein', conceptShape: 'ellipse', conceptColor: 'red', visibleDisplay: 'none' } , group: 'nodes' },
-        { data: { id: 'n22', value: 'DFR' , conceptType: 'Protein', conceptShape: 'ellipse', conceptColor: 'red', visibleDisplay: 'none' } , group: 'nodes' },
-        { data: { id: 'n23', value: 'DFR' , conceptType: 'Protein', conceptShape: 'ellipse', conceptColor: 'red', visibleDisplay: 'none' } , group: 'nodes' },
-        { data: { id: 'n24', value: 'DFR' , conceptType: 'Protein', conceptShape: 'ellipse', conceptColor: 'red', visibleDisplay: 'none' } , group: 'nodes' },
-        { data: { id: 'n25', value: 'DFR' , conceptType: 'Protein', conceptShape: 'ellipse', conceptColor: 'red', visibleDisplay: 'none' } , group: 'nodes' },
-        { data: { id: 'n26', value: 'DFR' , conceptType: 'Protein', conceptShape: 'ellipse', conceptColor: 'red', visibleDisplay: 'none' } , group: 'nodes' },
-        { data: { id: 'n27', value: 'DFR' , conceptType: 'Protein', conceptShape: 'ellipse', conceptColor: 'red', visibleDisplay: 'none' } , group: 'nodes' },
-        { data: { id: 'n28', value: 'A1' , conceptType: 'Protein', conceptShape: 'ellipse', conceptColor: 'red', visibleDisplay: 'none' } , group: 'nodes' }
->>>>>>> dev191114
       ], 
-
-      /** Edges (relations) define how nodes (concepts) are inter-linked using 'source' & 'target' attributes. **/
+      
+      /** Edges define how nodes are inter-linked using 'source' & 'target' attributes. **/
       edges: [
-        { data: { id: 'n1n2', source: 'n1', target: 'n2', label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n1n3', source: 'n1', target: 'n3' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n1n4', source: 'n1', target: 'n4' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n1n5', source: 'n1', target: 'n5' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n1n6', source: 'n1', target: 'n6' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n1n7', source: 'n1', target: 'n7' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n1n8', source: 'n1', target: 'n8' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n1n9', source: 'n1', target: 'n9' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n2n3', source: 'n2', target: 'n3' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n2n10', source: 'n2', target: 'n10' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n11n10', source: 'n11', target: 'n10' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n12n11', source: 'n12', target: 'n11' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n11n13', source: 'n11', target: 'n13' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n11n14', source: 'n11', target: 'n14' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n11n15', source: 'n11', target: 'n15' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n11n16', source: 'n11', target: 'n16' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n11n17', source: 'n11', target: 'n17' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n1n18', source: 'n1', target: 'n18' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n11n19', source: 'n11', target: 'n19' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n11n20', source: 'n11', target: 'n20' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n11n21', source: 'n11', target: 'n21' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n11n22', source: 'n11', target: 'n22' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n11n23', source: 'n11', target: 'n23' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n11n24', source: 'n11', target: 'n24' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n11n25', source: 'n11', target: 'n25' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n11n26', source: 'n11', target: 'n26' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n11n27', source: 'n11', target: 'n27' , label: 'linked to' } , group: 'edges' },
-        { data: { id: 'n11n28', source: 'n11', target: 'n28' , label: 'linked to' } , group: 'edges' }
+        { data: { id: 'n1n2', source: 'n1', target: 'n2' } },
+        { data: { id: 'n1n3', source: 'n1', target: 'n3' } },
+        { data: { id: 'n1n4', source: 'n1', target: 'n4' } },
+        { data: { id: 'n1n5', source: 'n1', target: 'n5' } },
+        { data: { id: 'n1n6', source: 'n1', target: 'n6' } },
+        { data: { id: 'n1n7', source: 'n1', target: 'n7' } },
+        { data: { id: 'n1n8', source: 'n1', target: 'n8' } },
+        { data: { id: 'n1n9', source: 'n1', target: 'n9' } },
+        { data: { id: 'n2n3', source: 'n2', target: 'n3' } },
+        { data: { id: 'n2n10', source: 'n2', target: 'n10' } },
+        { data: { id: 'n11n10', source: 'n11', target: 'n10' } },
+        { data: { id: 'n12n11', source: 'n12', target: 'n11' } },
+        { data: { id: 'n11n13', source: 'n11', target: 'n13' } },
+        { data: { id: 'n11n14', source: 'n11', target: 'n14' } },
+        { data: { id: 'n11n15', source: 'n11', target: 'n15' } },
+        { data: { id: 'n11n16', source: 'n11', target: 'n16' } },
+        { data: { id: 'n11n17', source: 'n11', target: 'n17' } },
+        { data: { id: 'n1n18', source: 'n1', target: 'n18' } },
+        { data: { id: 'n11n19', source: 'n11', target: 'n19' } },
+        { data: { id: 'n11n20', source: 'n11', target: 'n20' } },
+        { data: { id: 'n11n21', source: 'n11', target: 'n21' } },
+        { data: { id: 'n11n22', source: 'n11', target: 'n22' } },
+        { data: { id: 'n11n23', source: 'n11', target: 'n23' } },
+        { data: { id: 'n11n24', source: 'n11', target: 'n24' } },
+        { data: { id: 'n11n25', source: 'n11', target: 'n25' } },
+        { data: { id: 'n11n26', source: 'n11', target: 'n26' } },
+        { data: { id: 'n11n27', source: 'n11', target: 'n27' } },
+        { data: { id: 'n11n28', source: 'n11', target: 'n28' } },
       ]
     };
 
@@ -131,11 +100,7 @@ $(function(){ // on dom ready
          })
       .selector('edge')
         .css({
-<<<<<<< HEAD
           'content': 'linked to', // label for edges (arrows)
-=======
-          'content': 'data(label)', // label for edges (arrows)
->>>>>>> dev191114
           'font-size': '8px',
           'width': '3px',
           'curve-style': 'bezier', /* default value: bezier; options: bezier, unbundled-bezier, haystack */
