@@ -1,0 +1,70 @@
+      body {
+        font: 14px helvetica neue, helvetica, arial, sans-serif;
+        margin: 0px;
+        padding: 0px;
+      }
+
+      /* CytoscapeJS "core" container */
+      #cy {
+        height: 600px;
+        width: 1200px;
+        margin: auto;
+        position: relative;
+        top: 1px;
+        bottom: 1px;
+        padding-bottom: 25px;
+/*      border: solid 1px #888; */
+/*        left: 0px;
+        float: left;
+        border-radius: 6px;
+        border: solid 1px gray;*/
+       }
+
+      /* Legend */
+      #legend_picture {
+          position:relative;
+          width:100%;
+          padding-top:5px;
+          padding-bottom: 45px;
+      }
+      
+      #legend_picture #legend_container {
+          position: relative;
+          margin: auto;
+          width: 500px;
+          height: 80px;
+      }
+      
+      #legend_frame {
+          border: solid 1px gray; 
+          padding: 10px; 
+          border-radius: 6px;
+      }
+      
+      /* Item Info. dialog box */
+       .ui-widget-header,.ui-state-default, ui-button {
+          background: #b9cd6d;
+          border: 1px solid black;
+          color: #FFFFFF;
+          font-weight: bold;
+         }
+
+       .ui-widget-content {
+          background: white;
+          border: 1px solid #b9cd6d;
+          color: black;
+         }
+
+      /* page footer */
+      #pageFooter {
+          position: relative;
+          width: 1200px;
+          height: 20px;
+          padding-top: 5px;
+          clear: left;
+          font-size:14px;
+          text-align:center;
+          margin:auto;
+          margin-left:5px;
+          margin-bottom:1px;
+         }
