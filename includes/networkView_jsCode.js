@@ -1,15 +1,17 @@
-/*
+/**
  * @author Ajit Singh
  * @name Network View example
- * @description example code for Network View using Javascript, jQuery, CytoscapeJS, Arbor.js, JQuery UI, cxtmenu, QTip, multi-select (using Shift + click) & JSON.
+ * @description example code for Network View using Javascript, jQuery, CytoscapeJS, JQuery UI, cxtmenu, QTip, 
+ * multi-select (using Shift + click), Cola.js & JSON.
  * @returns
  **/
 $(function(){ // on dom ready
 
+  /** A JSON-like variable used to generate the example nodes and edges. */
   var networkJSON= {
-      /** Nodes are actual concepts that we intend to plot. These may be Genes, Phenotypes, Enzymes, Compounds, 
-       * Cellular components, Publications, Biological Processes, Pathways, Reactions, Proteins, Protein Domains,
-       * Trait Ontologies, Enzyme Classifications or Molecular Functons. **/
+      /** Nodes are actual concepts that we intend to use for the network. These may be Genes, Phenotypes, Enzymes, 
+       * Compounds, Cellular components, Publications, Biological Processes, Pathways, Reactions, Proteins, 
+       * Protein Domains, Trait Ontologies, Enzyme Classifications or Molecular Functons. */
       nodes: [
         { data: { id: 'n1', value: 'AT5G4893i' , conceptType: 'Gene', conceptShape: 'triangle', conceptColor: 'cyan', visibleDisplay: 'element' } , group: 'nodes' },
         { data: { id: 'n2', value: 'AT5G1470i' , conceptType: 'Gene', conceptShape: 'triangle', conceptColor: 'cyan', visibleDisplay: 'element' } , group: 'nodes' },
@@ -41,7 +43,7 @@ $(function(){ // on dom ready
         { data: { id: 'n28', value: 'A1' , conceptType: 'Protein', conceptShape: 'ellipse', conceptColor: 'red', visibleDisplay: 'none' } , group: 'nodes' }
       ], 
 
-      /** Edges (relations) define how nodes (concepts) are inter-linked using 'source' & 'target' attributes. **/
+      /** Edges (relations) define how nodes (concepts) are inter-linked using 'source' & 'target' attributes. */
       edges: [
         { data: { id: 'n1n2', source: 'n1', target: 'n2', label: 'linked to' } , group: 'edges' },
         { data: { id: 'n1n3', source: 'n1', target: 'n3' , label: 'linked to' } , group: 'edges' },
@@ -73,7 +75,7 @@ $(function(){ // on dom ready
         { data: { id: 'n11n28', source: 'n11', target: 'n28' , label: 'linked to' } , group: 'edges' }
       ]
     };
-
+/*
     // Display 'networkJSON' elements.nodes data in console.
     for(var j = 0; j < networkJSON.nodes.length; j++){
         console.log("JSON node.data (id, value, conceptType, conceptShape, conceptColor): "+ 
@@ -81,12 +83,13 @@ $(function(){ // on dom ready
                 networkJSON.nodes[j].data.conceptType +" , "+ networkJSON.nodes[j].data.conceptShape +" , "+ 
                 networkJSON.nodes[j].data.conceptColor);
        }
-
+*/
    // Define the stylesheet to be used for nodes & edges in the cytoscape.js container.
    var networkStylesheet= cytoscape.stylesheet()
       .selector('node')
         .css({
           'content': 'data(value)',
+     //     'text-valign': 'center', // to have 'content' displayed in the middle of the node.
           'outline-colour': 'black', // text outline color
           'border-style': 'solid', // node border
           'border-width': '1px',
@@ -102,8 +105,8 @@ $(function(){ // on dom ready
         .css({
           'content': 'data(label)', // label for edges (arrows).
           'font-size': '8px',
-          'width': '3px', // use mapData() mapper to allow for curved edges.
           'curve-style': 'bezier', /* default value: bezier; options: bezier, unbundled-bezier, haystack (straight edges) */
+          'width': '3px', // use mapData() mapper to allow for curved edges for inter-connected nodes.
           'line-color': 'gray',
           'line-style': 'solid',
           'target-arrow-shape': 'triangle',
@@ -123,9 +126,10 @@ $(function(){ // on dom ready
         'border-color': '#333'
       });
 
-   // Define the default layout for the network (cola/ gem).
+   /** Define the default layout for the network, using CoLa layout from Cola.js (similar to the "Gem" layout in 
+    * Ondex Web). */
    var defaultNetworkLayout= {
-    name: 'cola', // Cola layout, using Cola.v3.min.js & Cola.adaptor.js (Ondex Web: Gem)
+    name: 'cola', // CoLa layout, using Cola.v3.min.js & Cola.adaptor.js (Ondex Web: Gem)
     animate: true, fit: true, padding: 10, // padding around the simulation
     boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
     refresh: 1, // number of ticks per frame; higher is faster but more jerky
@@ -152,6 +156,7 @@ $(function(){ // on dom ready
     // infinite layout options
     infinite: false // overrides all other options for a forces-all-the-time mode
 
+// Other Layouts:
 /*       name: 'breadthfirst', // Breadth first layout (Ondex Web: Hierarchial)
       fit: true, directed: true, padding: 10, circle: false, boundingBox: undefined, avoidOverlap: true, 
       maximalAdjustments: 0, animate: false, animationDuration: 500, roots: undefined, // '#n12', 
@@ -228,7 +233,7 @@ $('#cy').cytoscape({
   layout: defaultNetworkLayout,
   
   ready: function() {
-   console.log('ready');
+//   console.log('ready');
    window.cy= this;
   }
 });
@@ -290,7 +295,7 @@ cy.elements().qtip({
     // Use selector: '*' to set this circular Context Menu on all the elements of the core.
     /** Note: Specify selector: 'node' or 'edge' to restrict the context menu to a specific type of element. e.g, 
      * selector: 'node', // to have context menu only for nodes.
-    selector: 'edge', // to have context menu only for edges. */
+     * selector: 'edge', // to have context menu only for edges. */
     selector: '*',
     commands: [ // an array of commands to list in the menu
         {
@@ -301,8 +306,8 @@ cy.elements().qtip({
              var nodeInfo= "<div>Concept Type: "+ this.data('conceptType') +"<br/> Value: "+ this.data('value') +
                      "<br/> <br/><u>Properties:</u> <br/> id: "+ this.id() +"<br/> Shape: "+ this.data('conceptShape') +
                      "<br/> Color: "+ this.data('conceptColor') +"</div>";
+             // Show Item info. in a new window.
              itemInfo.document.write("<html><body><b><u>Node details</u></b><br/>"+ nodeInfo +"</body></html>");*/
-//             console.log("Item Info. command selected; id: "+ this.id());
              var itemInfo= "";
              $("#infoDialog").dialog();
              try {
@@ -323,7 +328,6 @@ cy.elements().qtip({
         {
          content: 'Show All',
          select: function() {
-//             console.log("Show All command selected; nodeID: "+ this.id());
              cy.elements('node').show(); // show all nodes.
              cy.elements('edge').show(); // show all edges
             }
@@ -332,7 +336,6 @@ cy.elements().qtip({
         {
          content: 'Hide',
          select: function() {
-//             console.log("Hide command selected; nodeID: "+ this.id());
              this.hide(); // hide the selected 'node' element.
             }
         },
@@ -340,8 +343,6 @@ cy.elements().qtip({
         {
          content: 'Relayout',
          select: function() {
-             // a function to execute when the command is selected
-//             console.log("Relayout command selected; nodeID: "+ this.id()); // 'this' holds the reference to the active element
              cy.reset(); // reset the graph's zooming & panning properties.
             }
         },
@@ -349,7 +350,6 @@ cy.elements().qtip({
         {
          content: 'Show Selections',
          select: function() {
-//             console.log("Show Selections command selected; id: "+ this.id());
              $("#infoDialog").dialog();
              // Display details of all the selected elements: nodes & edges.
              var selections= "";
