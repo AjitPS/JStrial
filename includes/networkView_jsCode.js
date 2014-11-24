@@ -11,7 +11,7 @@ $(function(){ // on dom ready
   var networkJSON= {
       /** Nodes are actual concepts that we intend to use for the network. These may be Genes, Phenotypes, Enzymes, 
        * Compounds, Cellular components, Publications, Biological Processes, Pathways, Reactions, Proteins, 
-       * Protein Domains, Trait Ontologies, Enzyme Classifications or Molecular Functons. */
+       * Protein Domains, Trait Ontologies, Enzyme Classifications or Molecular Functions. */
       nodes: [
         { data: { id: 'n1', value: 'AT5G4893i' , conceptType: 'Gene', conceptShape: 'triangle', conceptColor: 'cyan', visibleDisplay: 'element' } , group: 'nodes' },
         { data: { id: 'n2', value: 'AT5G1470i' , conceptType: 'Gene', conceptShape: 'triangle', conceptColor: 'cyan', visibleDisplay: 'element' } , group: 'nodes' },
@@ -75,15 +75,15 @@ $(function(){ // on dom ready
         { data: { id: 'n11n28', source: 'n11', target: 'n28' , label: 'linked to' } , group: 'edges' }
       ]
     };
-/*
+
     // Display 'networkJSON' elements.nodes data in console.
-    for(var j = 0; j < networkJSON.nodes.length; j++){
+/*    for(var j = 0; j < networkJSON.nodes.length; j++){
         console.log("JSON node.data (id, value, conceptType, conceptShape, conceptColor): "+ 
                 networkJSON.nodes[j].data.id +" , "+ networkJSON.nodes[j].data.value +" , "+ 
                 networkJSON.nodes[j].data.conceptType +" , "+ networkJSON.nodes[j].data.conceptShape +" , "+ 
                 networkJSON.nodes[j].data.conceptColor);
-       }
-*/
+       }*/
+
    // Define the stylesheet to be used for nodes & edges in the cytoscape.js container.
    var networkStylesheet= cytoscape.stylesheet()
       .selector('node')
@@ -136,13 +136,13 @@ $(function(){ // on dom ready
     maxSimulationTime: 4000, // max length in ms to run the layout
     ungrabifyWhileSimulating: false, // so you can't drag nodes during layout
     // layout event callbacks
-    ready: function(){}, // on layoutready
-    stop: function(){}, // on layoutstop
+    ready: function() {}, // on layoutready
+    stop: function() {}, // on layoutstop
     // positioning options
     randomize: false, // use random node positions at beginning of layout
     avoidOverlap: true,
     handleDisconnected: true, // if true, avoids disconnected components from overlapping
-    nodeSpacing: function( node ){ return 10; }, // extra spacing around nodes
+    nodeSpacing: function( node ){ return 10; }, // for extra spacing around nodes
     flow: undefined, // use DAG/ tree flow layout if specified, e.g. { axis: 'y', minSeparation: 30 }
     alignment: undefined, // relative alignment constraints on nodes, e.g. function( node ){ return { x: 0, y: 1 } }
     // different methods of specifying edge length, each can be a constant numerical value or a function like `function( edge ){ return 2; }`
