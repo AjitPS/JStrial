@@ -244,6 +244,8 @@ var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
 // Pan & zooms the graph to fit all the elements (concept nodes) in the graph.
 //cy.fit();
 
+cy.boxSelectionEnabled(false); // to disable box selection & hence have faster Panning (dragging the entire graph).
+
 /** Add a Qtip message to all the nodes & edges using QTip displaying their Concept Type & value..
  * Note: Specify 'node' or 'edge' to bind an event to a specific type of element.
  * e.g, cy.elements('node').qtip({ }); or cy.elements('edge').qtip({ }); */
