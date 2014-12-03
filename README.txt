@@ -11,3 +11,4 @@
 7) Panning (dragging) the entire network via a mouse drag event.
 8) Item Info. dialog pop up upon clicking a node or edge and selecting "Item Info." from the circular context menu.
 & more.
+9) All nodes & edges data is retrieved from a file containing data in JSON format.
