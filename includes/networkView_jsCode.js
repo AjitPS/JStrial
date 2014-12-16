@@ -65,7 +65,8 @@ $(function(){ // on dom ready
     * Ondex Web). */
    var defaultNetworkLayout= {
     name: 'cola', // CoLa layout, using Cola.v3.min.js & Cola.adaptor.js (Ondex Web: Gem)
-    animate: true, fit: true, padding: 10, // padding around the simulation
+    animate: false, // true, 
+    fit: true, padding: 10, // padding around the simulation
     boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
     refresh: 1, // number of ticks per frame; higher is faster but more jerky
     maxSimulationTime: 4000, // max length in ms to run the layout
@@ -122,7 +123,8 @@ $(function(){ // on dom ready
     stiffness: 400, repulsion: 400, damping: 0.5 */
 
 /*      name: 'circle', // Circle layout (Ondex Web: Circular)
-      directed: true, roots: '#n12', padding: 10, avoidOverlap: true */
+      directed: true, roots: undefined, // '#n12',
+      padding: 10, avoidOverlap: true */
 
 /*    name: 'dagre', // Dagre layout, using the Ranking algorithm from dagre.js (Ondex Web: RadialTree).
     // dagre algorithm options, uses default value on undefined
