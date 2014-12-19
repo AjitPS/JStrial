@@ -12,18 +12,23 @@ $(function(){ // on dom ready
   var networkJSON= graphJSON; // using the JSON object directly
 
   // Display 'networkJSON' elements.nodes data in console.
-/*  for(var j = 0; j < networkJSON.nodes.length; j++){
-      console.log("JSON node.data (id, value, conceptType, conceptShape, conceptColor): "+ 
-              networkJSON.nodes[j].data.id +" , "+ networkJSON.nodes[j].data.value +" , "+ 
-              networkJSON.nodes[j].data.conceptType +" , "+ networkJSON.nodes[j].data.conceptShape +" , "+ 
-              networkJSON.nodes[j].data.conceptColor);
-     }*/
+  for(var j = 0; j < networkJSON.nodes.length; j++){
+      console.log("JSON node.data (id, value, conceptType): "+ 
+              networkJSON.nodes[j].data.id +", "+ networkJSON.nodes[j].data.value +", "+ 
+              networkJSON.nodes[j].data.conceptType);
+     }
+  console.log("\n \n");
+  for(var k = 0; k < networkJSON.edges.length; k++){
+      console.log("JSON edge.data (id, source, target): "+ 
+              networkJSON.edges[k].data.id +", "+ networkJSON.edges[k].data.source +", "+ 
+              networkJSON.edges[k].data.target);
+     }
 
    // Define the stylesheet to be used for nodes & edges in the cytoscape.js container.
    var networkStylesheet= cytoscape.stylesheet()
       .selector('node')
         .css({
-          'content': 'data(value)',
+          'content': 'data(id)', // 'data(value)',
      //     'text-valign': 'center', // to have 'content' displayed in the middle of the node.
           'outline-colour': 'black', // text outline color
           'border-style': 'solid', // node border
@@ -40,7 +45,7 @@ $(function(){ // on dom ready
         .css({
           'content': 'data(label)', // label for edges (arrows).
           'font-size': '8px',
-          'curve-style': 'bezier', /* default value: bezier; options: bezier, unbundled-bezier, haystack (straight edges) */
+          'curve-style': 'bezier', // default. /* options: bezier, unbundled-bezier, haystack (straight edges) */
           'width': '3px', // use mapData() mapper to allow for curved edges for inter-connected nodes.
           'line-color': 'gray',
           'line-style': 'solid',
@@ -69,7 +74,7 @@ $(function(){ // on dom ready
     fit: true, padding: 10, // padding around the simulation
     boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
     refresh: 1, // number of ticks per frame; higher is faster but more jerky
-    maxSimulationTime: 4000, // max length in ms to run the layout
+    maxSimulationTime: 5000, // max length in ms to run the layout
     ungrabifyWhileSimulating: false, // so you can't drag nodes during layout
     // layout event callbacks
     ready: function() {}, // on layoutready
@@ -138,8 +143,9 @@ $(function(){ // on dom ready
     boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
     ready: function(){}, stop: function(){} */
 
- /*     name: 'cose', // CytoscapeJS Cose layout
-      roots: '#n12', padding: 5 */
+/*    name: 'cose', // CytoscapeJS Cose layout
+    animate: false, avoidOverlap: true, roots: undefined, // '#n12', 
+    padding: 5 */
 
 /*    name: 'grid', // CytoscapeJS Grid layout
     fit: true, padding: 30, boundingBox: undefined, avoidOverlap: true, animate: false, animationDuration: 500,
@@ -192,10 +198,10 @@ cy.elements().qtip({
       var qtipMsg= "";
       try {
       if(this.isNode()) {
-         qtipMsg= "Concept: "+ this.data('conceptType') +", Value: "+ this.data('value'); // this.id();
+         qtipMsg= "ID: "+ this.id() +", Concept: "+ this.data('conceptType') +", Value: "+ this.data('value');
         }
       else if(this.isEdge()) {
-              qtipMsg= "Relation ID: "+ this.id();
+              qtipMsg= "ID: "+ this.id() +", Edge Label: "+ this.data('label');
              }
       }
       catch(err) { qtipMsg= "Selected element is neither a Concept nor a Relation"; }
@@ -253,11 +259,11 @@ cy.elements().qtip({
              try {
              if(this.isNode()) {
                 itemInfo= "Concept Type: "+ this.data('conceptType') +"<br/> Value: "+ this.data('value') +
-                     "<br/> <br/><u>Properties:</u> <br/> id: "+ this.id() +"<br/> Shape: "+ 
+                     "<br/> <br/><u>Properties:</u> <br/> ID: "+ this.id() +"<br/> Shape: "+ 
                      this.data('conceptShape') +"<br/> Color: "+ this.data('conceptColor');
                }
              else if(this.isEdge()) {
-                     itemInfo= "Relation id= "+ this.id();
+                     itemInfo= "Relation ID= "+ this.id();
                     }
              }
              catch(err) { itemInfo= "Selected element is neither a Concept nor a Relation"; }
