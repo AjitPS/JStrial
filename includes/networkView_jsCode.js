@@ -28,7 +28,7 @@ $(function(){ // on dom ready
    var networkStylesheet= cytoscape.stylesheet()
       .selector('node')
         .css({
-          'content': 'data(id)', // 'data(value)',
+          'content': 'data(value)',
      //     'text-valign': 'center', // to have 'content' displayed in the middle of the node.
           'outline-colour': 'black', // text outline color
           'border-style': 'solid', // node border
@@ -175,8 +175,21 @@ $('#cy').cytoscape({
   // Layout of the Network.
   layout: defaultNetworkLayout,
   
+  // these options hide parts of the graph during interaction.
+//  hideEdgesOnViewport: true,
+//  hideLabelsOnViewport: true,
+
+  // this is an alternative that uses a bitmap during interaction.
+  textureOnViewport: true,
+
+  // interpolate on high density displays instead of increasing resolution.
+  pixelRatio: 1,
+
+  // a "motion blur" effect that increases perceived performance for little or no cost.
+  motionBlur: true,
+
   ready: function() {
-//   console.log('ready');
+   console.log('ready');
    window.cy= this;
   }
 });
