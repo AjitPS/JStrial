@@ -28,7 +28,10 @@ $(function(){ // on dom ready
    var networkStylesheet= cytoscape.stylesheet()
       .selector('node')
         .css({
-          'content': 'data(value)',
+          'content':  'data(value)',
+                     /*function() {
+                      return this.id() +": "+ this.data('value');
+                     },*/
      //     'text-valign': 'center', // to have 'content' displayed in the middle of the node.
           'outline-colour': 'black', // text outline color
           'border-style': 'solid', // node border
