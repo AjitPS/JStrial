@@ -1,0 +1,110 @@
+var graphJSON= { "edges": [{ "data": {
+ "id": "e1", "source": "29", "target": "4", "label": "has_similar_sequence"} , "group": "edges"} , { "data": {
+ "id": "e2", "source": "9", "target": "24", "label": "located_in"} , "group": "edges"} , { "data": {
+ "id": "e3", "source": "4", "target": "17", "label": "published_in"} , "group": "edges"} , { "data": {
+ "id": "e4", "source": "4", "target": "15", "label": "published_in"} , "group": "edges"} , { "data": {
+ "id": "e5", "source": "29", "target": "6", "label": "has_similar_sequence"} , "group": "edges"} , { "data": {
+ "id": "e6", "source": "4", "target": "14", "label": "published_in"} , "group": "edges"} , { "data": {
+ "id": "e7", "source": "4", "target": "13", "label": "published_in"} , "group": "edges"} , { "data": {
+ "id": "e8", "source": "31", "target": "6", "label": "has_similar_sequence"} , "group": "edges"} , { "data": {
+ "id": "e9", "source": "4", "target": "16", "label": "published_in"} , "group": "edges"} , { "data": {
+ "id": "e10", "source": "6", "target": "15", "label": "published_in"} , "group": "edges"} , { "data": {
+ "id": "e11", "source": "4", "target": "5", "label": "part_of_catalyzing_class"} , "group": "edges"} , { "data": {
+ "id": "e12", "source": "6", "target": "23", "label": "participates_in"} , "group": "edges"} , { "data": {
+ "id": "e13", "source": "6", "target": "20", "label": "participates_in"} , "group": "edges"} , { "data": {
+ "id": "e14", "source": "31", "target": "4", "label": "has_similar_sequence"} , "group": "edges"} , { "data": {
+ "id": "e15", "source": "6", "target": "21", "label": "participates_in"} , "group": "edges"} , { "data": {
+ "id": "e17", "source": "4", "target": "11", "label": "published_in"} , "group": "edges"} , { "data": {
+ "id": "e16", "source": "2", "target": "3", "label": "has_protein_domain"} , "group": "edges"} , { "data": {
+ "id": "e19", "source": "9", "target": "27", "label": "participates_in"} , "group": "edges"} , { "data": {
+ "id": "e18", "source": "4", "target": "12", "label": "published_in"} , "group": "edges"} , { "data": {
+ "id": "e21", "source": "2", "target": "7", "label": "orthologue"} , "group": "edges"} , { "data": {
+ "id": "e20", "source": "31", "target": "3", "label": "has_protein_domain"} , "group": "edges"} , { "data": {
+ "id": "e23", "source": "2", "target": "4", "label": "has_similar_sequence"} , "group": "edges"} , { "data": {
+ "id": "e22", "source": "2", "target": "8", "label": "orthologue"} , "group": "edges"} , { "data": {
+ "id": "e25", "source": "9", "target": "10", "label": "has_function"} , "group": "edges"} , { "data": {
+ "id": "e24", "source": "2", "target": "6", "label": "has_similar_sequence"} , "group": "edges"} , { "data": {
+ "id": "e27", "source": "9", "target": "7", "label": "encodes"} , "group": "edges"} , { "data": {
+ "id": "e26", "source": "9", "target": "28", "label": "published_in"} , "group": "edges"} , { "data": {
+ "id": "e29", "source": "29", "target": "3", "label": "has_protein_domain"} , "group": "edges"} , { "data": {
+ "id": "e28", "source": "4", "target": "19", "label": "participates_in"} , "group": "edges"} , { "data": {
+ "id": "e31", "source": "4", "target": "18", "label": "participates_in"} , "group": "edges"} , { "data": {
+ "id": "e30", "source": "4", "target": "10", "label": "has_function"} , "group": "edges"} , { "data": {
+ "id": "e34", "source": "29", "target": "7", "label": "orthologue"} , "group": "edges"} , { "data": {
+ "id": "e35", "source": "29", "target": "8", "label": "orthologue"} , "group": "edges"} , { "data": {
+ "id": "e32", "source": "6", "target": "22", "label": "participates_in"} , "group": "edges"} , { "data": {
+ "id": "e33", "source": "6", "target": "25", "label": "participates_in"} , "group": "edges"} , { "data": {
+ "id": "e38", "source": "31", "target": "7", "label": "orthologue"} , "group": "edges"} , { "data": {
+ "id": "e39", "source": "6", "target": "10", "label": "has_function"} , "group": "edges"} , { "data": {
+ "id": "e36", "source": "30", "target": "29", "label": "encodes"} , "group": "edges"} , { "data": {
+ "id": "e37", "source": "1", "target": "2", "label": "encodes"} , "group": "edges"} , { "data": {
+ "id": "e40", "source": "31", "target": "8", "label": "orthologue"} , "group": "edges"} , { "data": {
+ "id": "e41", "source": "26", "target": "31", "label": "encodes"} , "group": "edges"} ],
+ "nodes": [{ "data": {
+ "conceptColor": "cyan", "annotation": "", "id": "1", "conceptType": "Gene", "value": " ", "pid": "Traes_1BS_3468DEF53", "conceptShape": "triangle", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "red", "annotation": "", "id": "2", "conceptType": "Protein", "value": " ", "pid": "Traes_1BS_3468DEF53.1", "conceptShape": "ellipse", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "grey", "annotation": "", "id": "3", "conceptType": "Protein Domain", "value": "PF12697", "pid": "", "conceptShape": "pentagon", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "red", "annotation": "Created:  2013-04-03; Modified:  2013-09-18; Version:  48", "id": "4", "conceptType": "Protein", "value": "Probable <span style=\"background-color: yellow\"><b>strigolactone<\/b><\/span> esterase D14", "pid": "Q10QA5", "conceptShape": "ellipse", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "cyan", "annotation": "", "id": "5", "conceptType": "Enzyme Classification", "value": " ", "pid": "3.1.-.-", "conceptShape": "triangle", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "red", "annotation": "Created:  2013-04-03; Modified:  2013-10-16; Version:  49", "id": "6", "conceptType": "Protein", "value": "Probable esterase D14L", "pid": "Q10J20", "conceptShape": "ellipse", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "red", "annotation": "alpha\/beta-Hydrolases superfamily protein", "id": "7", "conceptType": "Protein", "value": "AT3G24420", "pid": "AT3G24420.1", "conceptShape": "ellipse", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "red", "annotation": "", "id": "8", "conceptType": "Protein", "value": "MLOC_68897.1", "pid": "", "conceptShape": "ellipse", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "cyan", "annotation": "alpha\/beta-Hydrolases superfamily protein", "id": "9", "conceptType": "Gene", "value": "AT3G24420", "pid": "AT3G24420;AT3G24420.1;locus: 2087213", "conceptShape": "triangle", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "purple", "annotation": "Catalysis of the formation of the linkage between a protein and a glycosylphosphatidylinositol anchor. The reaction probably occurs by subjecting a peptide bond to nucleophilic attack by the amino group of ethanolamine-GPI,  transferring the protein from a signal peptide to the GPI anchor. ( Reference:  ISBN: 0471331309 );Catalysis of the reaction:  coenzyme F390-A = AMP + coenzyme F420. ( Reference:  GOC: mengo_curators PMID: 8536708 PMID: 9352911 );Catalysis of the reaction:  coenzyme F390-G = GMP + coenzyme F420. ( Reference:  GOC: mengo_curators PMID: 8536708 PMID: 9352911 );Catalysis of the hydrolysis of various bonds,  e.g. C-O,  C-N,  C-C,  phosphoric anhydride bonds,  etc. Hydrolase is the systematic name for any enzyme of EC class 3. ( Reference:  ISBN: 0198506732 )", "id": "10", "conceptType": "Molecular_Function", "value": "8-hydroxyadenylylated-coenzyme F420 hydrolase", "pid": "GO: 0003923;GO: 0016787;GO: 0052770;GO: 0052771", "conceptShape": "pentagon", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "orange", "annotation": "[X-RAY CRYSTALLOGRAPHY (1.45 ANGSTROMS) OF 55-318 IN COMPLEX WITH INHIBITOR,  FUNCTION]", "id": "11", "conceptType": "Publication", "value": "PMID: 23301669", "pid": "23301669", "conceptShape": "rectangle", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "orange", "annotation": "[FUNCTION,  TISSUE SPECIFICITY,  DISRUPTION PHENOTYPE]", "id": "12", "conceptType": "Publication", "value": "PMID: 19542179", "pid": "19542179", "conceptShape": "rectangle", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "orange", "annotation": "[NUCLEOTIDE SEQUENCE [GENOMIC DNA],
+  TISSUE SPECIFICITY,  MUTAGENESIS OF GLY-79,  DISRUPTION PHENOTYPE]", "id": "13", "conceptType": "Publication", "value": "PMID: 19603144", "pid": "19603144", "conceptShape": "rectangle", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "orange", "annotation": "[DISRUPTION PHENOTYPE]", "id": "14", "conceptType": "Publication", "value": "PMID: 15659436", "pid": "15659436", "conceptShape": "rectangle", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "orange", "annotation": "[GENOME REANNOTATION]", "id": "15", "conceptType": "Publication", "value": "PMID: 18089549", "pid": "18089549", "conceptShape": "rectangle", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "orange", "annotation": "[3D-STRUCTURE MODELING]", "id": "17", "conceptType": "Publication", "value": "PMID: 22713366", "pid": "22713366", "conceptShape": "rectangle", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "orange", "annotation": "[DISRUPTION PHENOTYPE]", "id": "16", "conceptType": "Publication", "value": "PMID: 17655651", "pid": "17655651", "conceptShape": "rectangle", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "teal", "annotation": "The process that gives rise to secondary (or auxiliary or axillary) shoots in plants. This process pertains to the initial formation of a structure from unspecified parts. These secondary shoots originate from secondary meristems initiated in the axils of leaf primordia. Axillary meristems function like the shoot apical meristem of the primary shoot initating the development of lateral organs. ( Reference:  GOC: tb PMID: 12815068 )", "id": "19", "conceptType": "Biological_Process", "value": "axillary shoot system formation", "pid": "GO: 0010223", "conceptShape": "pentagon", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "teal", "annotation": "The chemical reactions and pathways resulting in the formation of <span style=\"background-color: yellow\"><b>strigolactone<\/b><\/span>. ( Reference:  GOC: TermGenie )", "id": "18", "conceptType": "Biological_Process", "value": "<span style=\"background-color: yellow\"><b>strigolactone<\/b><\/span> formation", "pid": "GO: 1901601", "conceptShape": "pentagon", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "teal", "annotation": "Any process that results in a change in state or activity of a cell or an organism (in terms of movement,  secretion,  enzyme production,  gene expression,  etc.) as a result of a UV-B radiation stimulus. UV-B radiation (UV-B light) spans the wavelengths 290 to 320 nm. ( Reference:  GOC: tb )", "id": "21", "conceptType": "Biological_Process", "value": "response to UV-B light stimulus", "pid": "GO: 0010224", "conceptShape": "pentagon", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "teal", "annotation": "The chemical reactions and pathways resulting in the formation of flavonoids,  a group of phenolic derivatives containing a flavan skeleton. ( Reference:  GOC: tair_curators ISBN: 0198547684 )", "id": "20", "conceptType": "Biological_Process", "value": "flavonoid biosynthetic process", "pid": "GO: 0009813", "conceptShape": "pentagon", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "teal", "annotation": "Any process that results in a change in state or activity of a cell or an organism (in terms of movement,  secretion,  enzyme production,  gene expression,  etc.) as a result of a karrikin stimulus. Karrikins are signaling molecules in smoke from burning vegetation that trigger seed germination for many angiosperms (flowering plants). ( Reference:  PMID: 20351290 )", "id": "23", "conceptType": "Biological_Process", "value": "response to karrikin", "pid": "GO: 0080167", "conceptShape": "pentagon", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "teal", "annotation": "Any process that results in a change in state or activity of a cell or an organism (in terms of movement,  secretion,  enzyme production,  gene expression,  etc.) as a result of a sucrose stimulus. ( Reference:  GOC: jl )", "id": "22", "conceptType": "Biological_Process", "value": "response to sucrose stimulus", "pid": "GO: 0009744", "conceptShape": "pentagon", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "teal", "annotation": "The greening response of plants grown in the dark (etiolated) as a result of chloroplast biogenesis and the accumulation of chlorophyll. ( Reference:  GOC: lr )", "id": "25", "conceptType": "Biological_Process", "value": "de-etiolation", "pid": "GO: 0009704", "conceptShape": "pentagon", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "lightGreen", "annotation": "All of the contents of a cell excluding the plasma membrane and nucleus,  but including other subcellular structures. ( Reference:  ISBN: 0198547684 )", "id": "24", "conceptType": "Cellular_Component", "value": "cytoplasm", "pid": "GO: 0005737", "conceptShape": "pentagon", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "teal", "annotation": "Any process specifically pertinent to the functioning of integrated living units:  cells,  tissues,  organs,  and organisms. A process is a collection of molecular events with a defined beginning and end. ( Reference:  GOC: go_curators GOC: isa_complete )", "id": "27", "conceptType": "Biological_Process", "value": "biological process", "pid": "GO: 0008150", "conceptShape": "pentagon", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "cyan", "annotation": "", "id": "26", "conceptType": "Gene", "value": " ", "pid": "Traes_1AS_901EDBCC0", "conceptShape": "triangle", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "red", "annotation": "", "id": "29", "conceptType": "Protein", "value": " ", "pid": "Traes_1DS_2B7B6BBCA.1", "conceptShape": "ellipse", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "orange", "annotation": "", "id": "28", "conceptType": "Publication", "value": "20736450", "pid": "20736450", "conceptShape": "rectangle", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "red", "annotation": "", "id": "31", "conceptType": "Protein", "value": " ", "pid": "Traes_1AS_901EDBCC0.1", "conceptShape": "ellipse", "visibleDisplay": "element"} , "group": "nodes"} , { "data": {
+ "conceptColor": "cyan", "annotation": "", "id": "30", "conceptType": "Gene", "value": " ", "pid": "Traes_1DS_2B7B6BBCA", "conceptShape": "triangle", "visibleDisplay": "element"} , "group": "nodes"} ]};
+
+var allGraphData= { "ondexmetadata": {
+ "relations": {
+ "relation": {
+ "id": "41", "relgds": {
+ "relation_gds": {
+ "value": "7", "doindex": "false", "attrname": {
+ "id": "size", "description": "", "datatype": "java.lang.Integer", "fullname": ""} } } , "ofType": {
+ "id": "enc", "isTransitive": "false", "isAntisymmetric": "true", "isReflexive": "false", "description": "Gene->Protein\n\t\t", "isSymmetric": "false", "inverseName": "is_encoded_by", "fullname": "encodes", "specialisationOf": {
+ "id": "info_transd", "isTransitive": "false", "isAntisymmetric": "false", "isReflexive": "false", "description": "", "isSymmetric": "false", "inverseName": "none", "fullname": "information_transduction", "specialisationOf": {
+ "id": "phys_intbio", "isTransitive": "false", "isAntisymmetric": "false", "isReflexive": "false", "description": "", "isSymmetric": "true", "inverseName": "physical_IB_relation", "fullname": "physical_IB_relation", "specialisationOf": {
+ "id": "physical", "isTransitive": "false", "isAntisymmetric": "false", "isReflexive": "false", "description": "", "isSymmetric": "false", "inverseName": "none", "fullname": "has_physical_relation_with", "specialisationOf": {
+ "id": "r", "isTransitive": "false", "isAntisymmetric": "false", "isReflexive": "true", "description": "Root relation type\n\t\t", "isSymmetric": "true", "inverseName": "is_related_to", "fullname": "is_related_to"} } } } } , "contexts": {
+ } , "toConcept": "31", "fromConcept": "26", "evidences": {
+ "evidence": {
+ "id": "IMPD", "description": "imported from database\n\t\t", "fullname": "Imported from database"} } } } , "graphName": "test", "numberOfConcepts": 31, "numberOfRelations": 41, "concepts": {
+ "concept": {
+ "annotation": "", "id": "30", "conames": {
+ "concept_name": {
+ "isPreferred": "false", "name": "Traes_1DS_2B7B6BBCA"} } , "ofType": {
+ "id": "Gene", "description": "Gene\n\t\t", "fullname": "Gene", "specialisationOf": {
+ "id": "ORF", "description": "Open reading frame\n\t\t", "fullname": "ORF", "specialisationOf": {
+ "id": "NucleotideFeature", "description": "", "fullname": "NucleotideFeature", "specialisationOf": {
+ "id": "SequenceFeature", "description": "", "fullname": "Sequence Feature", "specialisationOf": {
+ "id": "Thing", "description": "Thing\n\t\t", "fullname": "Thing"} } } } } , "description": "protein_coding", "coaccessions": {
+ "concept_accession": {
+ "elementOf": {
+ "id": "IWGSC", "description": "IWGSC", "fullname": "IWGSC"} , "accession": "Traes_1DS_2B7B6BBCA", "ambiguous": "false"} } , "elementOf": {
+ "id": "ENSEMBL", "description": "The Ensembl project produces genome databases for vertebrates and other eukaryotic species, \n                    and makes this information freely available online. \n- http: \/\/www.ensembl.org\n                ", "fullname": "Ensembl project"} , "value": " ", "contexts": {
+ } , "pid": "Traes_1DS_2B7B6BBCA", "attributes": {
+ "attribute": {
+ "value": "34", "doindex": "false", "attrname": {
+ "id": "size", "description": "", "datatype": "java.lang.Integer", "fullname": ""} } } , "evidences": {
+ "evidence": {
+ "id": "IMPD", "description": "imported from database\n\t\t", "fullname": "Imported from database"} } } } , "version": "1.0"} };

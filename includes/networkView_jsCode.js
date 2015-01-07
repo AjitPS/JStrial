@@ -2,11 +2,10 @@
  * @author Ajit Singh
  * @name Network View example
  * @description example code for Network View using Javascript, jQuery, CytoscapeJS, JQuery UI, cxtmenu, QTip, 
- * multi-select (using Shift + click), Cola.js & JSON.
+ * multi-select (using Shift + click), CoLa.js & JSON.
  * @returns
  **/
 $(function(){ // on dom ready
-
 //  var networkJSON= JSON.parse(graphJSON); // to parse JSON object containing node and edge data.
 //  var networkJSON= JSON.stringify(graphJSON); // if already parsed, to convert the JSON object to String.
   var networkJSON= graphJSON; // using the JSON object directly
@@ -28,7 +27,7 @@ $(function(){ // on dom ready
    var networkStylesheet= cytoscape.stylesheet()
       .selector('node')
         .css({
-          'content':  'data(value)',
+          'content': 'data(value)', // 'data(id)',
                      /*function() {
                       return this.id() +": "+ this.data('value');
                      },*/
@@ -73,7 +72,7 @@ $(function(){ // on dom ready
     * Ondex Web). */
    var defaultNetworkLayout= {
     name: 'cola', // CoLa layout, using Cola.v3.min.js & Cola.adaptor.js (Ondex Web: Gem)
-    animate: false, // true, 
+    animate: true, // false, 
     fit: true, padding: 10, // padding around the simulation
     boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
     refresh: 1, // number of ticks per frame; higher is faster but more jerky

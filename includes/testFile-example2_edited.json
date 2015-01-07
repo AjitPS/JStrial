@@ -1,0 +1,125 @@
+var graphJSON= { "edges": [
+{ "data": { "id": "e1", "source": "1", "target": "2", "label": "encodes"} , "group": "edges"} , 
+{ "data": { "id": "e2", "source": "2", "target": "3", "label": "has_protein_domain"} , "group": "edges"} , 
+{ "data": { "id": "e3", "source": "2", "target": "4", "label": "has_similar_sequence"} , "group": "edges"} , 
+{ "data": { "id": "e4", "source": "2", "target": "6", "label": "has_similar_sequence"} , "group": "edges"} , 
+{ "data": { "id": "e5", "source": "2", "target": "7", "label": "orthologue"} , "group": "edges"} , 
+{ "data": { "id": "e6", "source": "2", "target": "8", "label": "orthologue"} , "group": "edges"} , 
+{ "data": { "id": "e7", "source": "4", "target": "5", "label": "part_of_catalyzing_class"} , "group": "edges"} , 
+{ "data": { "id": "e8", "source": "4", "target": "10", "label": "has_function"} , "group": "edges"} , 
+{ "data": { "id": "e9", "source": "4", "target": "11", "label": "published_in"} , "group": "edges"} , 
+{ "data": { "id": "e10", "source": "4", "target": "12", "label": "published_in"} , "group": "edges"} , 
+{ "data": { "id": "e11", "source": "4", "target": "13", "label": "published_in"} , "group": "edges"} , 
+{ "data": { "id": "e12", "source": "4", "target": "14", "label": "published_in"} , "group": "edges"} , 
+{ "data": { "id": "e13", "source": "4", "target": "15", "label": "published_in"} , "group": "edges"} , 
+{ "data": { "id": "e14", "source": "4", "target": "16", "label": "published_in"} , "group": "edges"} , 
+{ "data": { "id": "e15", "source": "4", "target": "17", "label": "published_in"} , "group": "edges"} , 
+{ "data": { "id": "e16", "source": "4", "target": "18", "label": "participates_in"} , "group": "edges"} , 
+{ "data": { "id": "e17", "source": "4", "target": "19", "label": "participates_in"} , "group": "edges"} , 
+{ "data": { "id": "e18", "source": "6", "target": "10", "label": "has_function"} , "group": "edges"} , 
+{ "data": { "id": "e19", "source": "6", "target": "15", "label": "published_in"} , "group": "edges"} , 
+{ "data": { "id": "e20", "source": "6", "target": "20", "label": "participates_in"} , "group": "edges"} , 
+{ "data": { "id": "e21", "source": "6", "target": "21", "label": "participates_in"} , "group": "edges"} , 
+{ "data": { "id": "e22", "source": "6", "target": "22", "label": "participates_in"} , "group": "edges"} , 
+{ "data": { "id": "e23", "source": "6", "target": "23", "label": "participates_in"} , "group": "edges"} , 
+{ "data": { "id": "e24", "source": "6", "target": "25", "label": "participates_in"} , "group": "edges"} , 
+{ "data": { "id": "e25", "source": "9", "target": "7", "label": "encodes"} , "group": "edges"} , 
+{ "data": { "id": "e26", "source": "9", "target": "10", "label": "has_function"} , "group": "edges"} , 
+{ "data": { "id": "e27", "source": "9", "target": "24", "label": "located_in"} , "group": "edges"} , 
+{ "data": { "id": "e28", "source": "9", "target": "27", "label": "participates_in"} , "group": "edges"} , 
+{ "data": { "id": "e29", "source": "9", "target": "28", "label": "published_in"} , "group": "edges"} , 
+{ "data": { "id": "e30", "source": "26", "target": "31", "label": "encodes"} , "group": "edges"}, 
+{ "data": { "id": "e31", "source": "29", "target": "3", "label": "has_protein_domain"} , "group": "edges"} , 
+{ "data": { "id": "e32", "source": "29", "target": "4", "label": "has_similar_sequence"} , "group": "edges"} , 
+{ "data": { "id": "e33", "source": "29", "target": "6", "label": "has_similar_sequence"} , "group": "edges"} , 
+{ "data": { "id": "e34", "source": "29", "target": "7", "label": "orthologue"} , "group": "edges"} , 
+{ "data": { "id": "e35", "source": "29", "target": "8", "label": "orthologue"} , "group": "edges"} , 
+{ "data": { "id": "e36", "source": "30", "target": "29", "label": "encodes"} , "group": "edges"} , 
+{ "data": { "id": "e37", "source": "31", "target": "3", "label": "has_protein_domain"} , "group": "edges"} , 
+{ "data": { "id": "e38", "source": "31", "target": "4", "label": "has_similar_sequence"} , "group": "edges"} , 
+{ "data": { "id": "e39", "source": "31", "target": "6", "label": "has_similar_sequence"} , "group": "edges"} , 
+{ "data": { "id": "e40", "source": "31", "target": "7", "label": "orthologue"} , "group": "edges"} , 
+{ "data": { "id": "e41", "source": "31", "target": "8", "label": "orthologue"} , "group": "edges"} ],
+
+ "nodes": [
+{ "data": { "id": "1", "conceptType": "Gene", "value": "Traes_1BS_3468DEF53", "conceptColor": "cyan", "conceptShape": "triangle", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "2", "conceptType": "Protein", "value": "Traes_1BS_3468DEF53.1", "conceptColor": "red", "conceptShape": "ellipse", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "3", "conceptType": "Protein Domain", "value": "PF12697", "conceptColor": "grey", "conceptShape": "pentagon", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "4", "conceptType": "Protein", "value": "Probable strigolactone esterase D14", "conceptColor": "red", "conceptShape": "ellipse", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "5", "conceptType": "Enzyme Classification", "value": "3.1.-.-", "conceptColor": "cyan", "conceptShape": "triangle", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "6", "conceptType": "Protein", "value": "Probable esterase D14L", "conceptColor": "red", "conceptShape": "ellipse", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "7", "conceptType": "Protein", "value": "AT3G24420", "conceptColor": "red", "conceptShape": "ellipse", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "8", "conceptType": "Protein", "value": "MLOC_68897.1", "conceptColor": "red", "conceptShape": "ellipse", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "9", "conceptType": "Gene", "value": "AT3G24420", "conceptColor": "cyan", "conceptShape": "triangle", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "10", "conceptType": "Molecular_Function", "value": "8-hydroxyadenylylated-coenzyme F420 hydrolase", "conceptColor": "purple", "conceptShape": "pentagon", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "11", "conceptType": "Publication", "value": "PMID: 23301669", "conceptColor": "orange", "conceptShape": "rectangle", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "12", "conceptType": "Publication", "value": "PMID: 19542179", "conceptColor": "orange", "conceptShape": "rectangle", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "13", "conceptType": "Publication", "value": "PMID: 19603144", "conceptColor": "orange", "conceptShape": "rectangle", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "14", "conceptType": "Publication", "value": "PMID: 15659436", "conceptColor": "orange", "conceptShape": "rectangle", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "15", "conceptType": "Publication", "value": "PMID: 18089549", "conceptColor": "orange", "conceptShape": "rectangle", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "16", "conceptType": "Publication", "value": "PMID: 17655651", "conceptColor": "orange", "conceptShape": "rectangle", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "17", "conceptType": "Publication", "value": "PMID: 22713366", "conceptColor": "orange", "conceptShape": "rectangle", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "18", "conceptType": "Biological_Process", "value": "strigolactone formation", "conceptColor": "teal", "conceptShape": "pentagon", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "19", "conceptType": "Biological_Process", "value": "axillary shoot system formation", "conceptColor": "teal", "conceptShape": "pentagon", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "20", "conceptType": "Biological_Process", "value": "flavonoid biosynthetic process", "conceptColor": "teal", "conceptShape": "pentagon", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "21", "conceptType": "Biological_Process", "value": "response to UV-B light stimulus", "conceptColor": "teal", "conceptShape": "pentagon", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "22", "conceptType": "Biological_Process", "value": "response to sucrose stimulus", "conceptColor": "teal", "conceptShape": "pentagon", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "23", "conceptType": "Biological_Process", "value": "response to karrikin", "conceptColor": "teal", "conceptShape": "pentagon", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "24", "conceptType": "Cellular_Component", "value": "cytoplasm", "conceptColor": "lightGreen", "conceptShape": "pentagon", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "25", "conceptType": "Biological_Process", "value": "de-etiolation", "conceptColor": "teal", "conceptShape": "pentagon", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "26", "conceptType": "Gene", "value": "Traes_1AS_901EDBCC0", "conceptColor": "cyan", "conceptShape": "triangle", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "27", "conceptType": "Biological_Process", "value": "biological process", "conceptColor": "teal", "conceptShape": "pentagon", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "28", "conceptType": "Publication", "value": "20736450", "conceptColor": "orange", "conceptShape": "rectangle", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "29", "conceptType": "Protein", "value": "Traes_1DS_2B7B6BBCA.1", "conceptColor": "red", "conceptShape": "ellipse", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "30", "conceptType": "Gene", "value": "Traes_1DS_2B7B6BBCA", "conceptColor": "cyan", "conceptShape": "triangle", "visibleDisplay": "element"} , "group": "nodes"} , 
+{ "data": { "id": "31", "conceptType": "Protein", "value": "Traes_1AS_901EDBCC0.1", "conceptColor": "red", "conceptShape": "ellipse", "visibleDisplay": "element"} , "group": "nodes"}]} ;
+
+var allGraphData= { "ondexmetadata": {
+ "relations": {
+ "relation": {
+ "id": "e41", "relgds": {
+ "relation_gds": {
+ "value": "7", "doindex": "false", "attrname": {
+ "id": "esize", "description": "", "datatype": "java.lang.Integer", "fullname": ""} } } , "ofType": {
+ "id": "eenc", "isTransitive": "false", "isAntisymmetric": "true", "isReflexive": "false", 
+         "description": "Gene->Protein\n\t\t", "isSymmetric": "false", "inverseName": "is_encoded_by", 
+         "fullname": "encodes", "specialisationOf": {
+ "id": "einfo_transd", "isTransitive": "false", "isAntisymmetric": "false", "isReflexive": "false", 
+         "description": "", "isSymmetric": "false", "inverseName": "none", 
+         "fullname": "information_transduction", "specialisationOf": {
+ "id": "ephys_intbio", "isTransitive": "false", "isAntisymmetric": "false", "isReflexive": "false", 
+         "description": "", "isSymmetric": "true", "inverseName": "physical_IB_relation", 
+         "fullname": "physical_IB_relation", "specialisationOf": {
+ "id": "ephysical", "isTransitive": "false", "isAntisymmetric": "false", "isReflexive": "false", 
+         "description": "", "isSymmetric": "false", "inverseName": "none", 
+         "fullname": "has_physical_relation_with", "specialisationOf": {
+ "id": "er", "isTransitive": "false", "isAntisymmetric": "false", "isReflexive": "true", 
+         "description": "Root relation type\n\t\t", "isSymmetric": "true", "inverseName": "is_related_to", 
+         "fullname": "is_related_to"} } } } } , "contexts": {
+ } , "toConcept": "31", "fromConcept": "26", "evidences": {
+ "evidence": {
+ "id": "eIMPD", "description": "imported from database\n\t\t", "fullname": "Imported from database"} } } } , 
+"graphName": "test", "numberOfConcepts": 31, "numberOfRelations": 41, "concepts": {
+ "concept": {
+ "annotation": "", "id": "e30", "conames": {
+ "concept_name": {
+ "isPreferred": "false", "name": "Traes_1DS_2B7B6BBCA"} } , "ofType": {
+ "id": "eGene", "description": "Gene\n\t\t", "fullname": "Gene", "specialisationOf": {
+ "id": "eORF", "description": "Open reading frame\n\t\t", "fullname": "ORF", "specialisationOf": {
+ "id": "eNucleotideFeature", "description": "", "fullname": "NucleotideFeature", "specialisationOf": {
+ "id": "eSequenceFeature", "description": "", "fullname": "Sequence Feature", "specialisationOf": {
+ "id": "eThing", "description": "Thing\n\t\t", "fullname": "Thing"} } } } } , "description": "protein_coding", 
+"coaccessions": {
+ "concept_accession": {
+ "elementOf": {
+ "id": "eIWGSC", "description": "IWGSC", "fullname": "IWGSC"} , "accession": "Traes_1DS_2B7B6BBCA", 
+     "ambiguous": "false"} } , "elementOf": {
+ "id": "eENSEMBL", "description": "The Ensembl project produces genome databases for vertebrates and other \n\
+eukaryotic species, \n and makes this information freely available online. \n- http: \/\/www.ensembl.org\n                ", "fullname": "Ensembl project"} , "value": " ", "contexts": {
+ } , "pid": "Traes_1DS_2B7B6BBCA", "attributes": {
+ "attribute": {
+ "value": "34", "doindex": "false", "attrname": {
+ "id": "esize", "description": "", "datatype": "java.lang.Integer", "fullname": ""} } } , "evidences": {
+ "evidence": {
+ "id": "eIMPD", "description": "imported from database\n\t\t", "fullname": "Imported from database"} } } } , 
+"version": "1.0"} } ;
