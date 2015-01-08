@@ -99,7 +99,7 @@ $(function(){ // on dom ready
     // infinite layout options
     infinite: false // overrides all other options for a forces-all-the-time mode
 
-// Other Layouts:
+    // Other Layouts:
 /*       name: 'breadthfirst', // Breadth first layout (Ondex Web: Hierarchial)
       fit: true, directed: true, padding: 10, circle: false, boundingBox: undefined, avoidOverlap: true, 
       maximalAdjustments: 0, animate: false, animationDuration: 500, roots: undefined, // '#n12', 
@@ -146,7 +146,7 @@ $(function(){ // on dom ready
     ready: function(){}, stop: function(){} */
 
 /*    name: 'cose', // CytoscapeJS Cose layout
-    animate: false, avoidOverlap: true, roots: undefined, // '#n12', 
+    animate: false, avoidOverlap: true, roots: undefined, 
     padding: 5 */
 
 /*    name: 'grid', // CytoscapeJS Grid layout
