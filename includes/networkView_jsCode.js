@@ -49,7 +49,7 @@ $(function(){ // on dom ready
           'font-size': '8px',
           'curve-style': 'bezier', // default. /* options: bezier, unbundled-bezier, haystack (straight edges) */
           'width': '3px', // use mapData() mapper to allow for curved edges for inter-connected nodes.
-          'line-color': 'gray',
+          'line-color': 'data(edgeColor)', // 'gray',
           'line-style': 'solid',
           'target-arrow-shape': 'triangle',
           'target-arrow-color': 'gray'
