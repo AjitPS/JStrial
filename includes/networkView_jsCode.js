@@ -10,6 +10,24 @@ $(function(){ // on dom ready
 //  var networkJSON= JSON.stringify(graphJSON); // if already parsed, to convert the JSON object to String.
   var networkJSON= graphJSON; // using the JSON object directly
 
+  // Fetch JSON from url using jquery/ ajax.
+  var jsonUrl= "";
+  $.getJSON(jsonUrl, function( data ) {
+  var items = [];
+  $.each( data, function( key, val ) {
+    items.push( "<li id='" + key + "'>" + val + "</li>" );
+  });
+ 
+  $( "<ul/>", {
+    "class": "my-new-list",
+    html: items.join( "" )
+   }).appendTo( "body" );
+  }
+   // success handler.
+   
+  );
+
+
   // Display 'networkJSON' elements.nodes data in console.
   for(var j = 0; j < networkJSON.nodes.length; j++){
       console.log("JSON node.data (id, value, conceptType): "+ 
@@ -307,7 +325,20 @@ cy.elements().qtip({
              cy.reset(); // reset the graph's zooming & panning properties.
             }
         },
-            
+   /*     {
+         content: 'Download JSON',
+         select: function() {
+             var export_json= cy.json(); // Export the graph's JSON object.
+             // Export the graphJSON variable from the networkGraph.json file as a JSON object and add all 
+             // the required information to make it compatible for usage with the Cytoscape desktop 
+             // application.
+             var json_for_cytoscape= "{ \"data\" : { \"shared_name\" : \"networkGraph_for_Cytoscape\", \"name\" : \"networkGraph\", \"selected\" : true }, \"elements\" : "+networkJSON +" }";
+             // Write to file on the server.
+             
+             // Open new tab to allow user to download this file.
+             
+            }
+        },*/
         {
          content: 'Show Selections',
          select: function() {
