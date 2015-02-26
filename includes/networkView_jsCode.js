@@ -10,17 +10,50 @@ $(function(){ // on dom ready
 //  var networkJSON= JSON.stringify(graphJSON); // if already parsed, to convert the JSON object to String.
   var networkJSON= graphJSON; // using the JSON object directly
 
+  /* Fetch JSON data from the relevant QTLNetMiner server using JQuery and Ajax instead of directly using 
+   * the example JSON file (networkGraph.json). This data is located on the QTLNetMiner servers under 
+   * /var/www/html/{organism}_data/ and can be accessed via the url below. */
+  var data_url = "https://ondex.rothamsted.ac.uk/poplar_data/";
+  // For testing via the QTLNetMiner test server, use:
+  //  var data_url = "https://qtlnetminer-test.rothamsted.ac.uk/poplar_data/";
+
+  var jsonFile= "result_1424791328834.json"; // hard-coded for now, retrieve file name from 
+  var jsonUrl= data_url + jsonFile; // using data_url from utils-config.js and json file name.
+
+/*  $.getJSON(jsonUrl, function( data ) {
+  var items = [];
+  $.each( data, function( key, val ) {
+    items.push( "<li id='" + key + "'>" + val + "</li>" );
+  });
+ 
+  $( "<ul/>", {
+    "class": "new-json-data-list",
+    html: items.join( "" )
+   }).appendTo( "body" );
+  }
+   // success handler.
+   
+  );*/
+    
+
   // Display 'networkJSON' elements.nodes data in console.
   for(var j = 0; j < networkJSON.nodes.length; j++){
-      console.log("JSON node.data (id, value, conceptType): "+ 
-              networkJSON.nodes[j].data.id +", "+ networkJSON.nodes[j].data.value +", "+ 
-              networkJSON.nodes[j].data.conceptType);
+      var anno= networkJSON.nodes[j].data.annotation;
+      if (anno.length>15) {
+          anno= anno.substring(0,15) +"..."; 
+         }
+      console.log("JSON node.data (id, type, conceptColor, shape, visibleDisplay, value, annotation, pid): "+ 
+              networkJSON.nodes[j].data.id +", "+ networkJSON.nodes[j].data.conceptType +", "+ 
+              networkJSON.nodes[j].data.conceptColor +", "+ networkJSON.nodes[j].data.conceptShape +", "+ 
+              networkJSON.nodes[j].data.visibleDisplay +", "+ networkJSON.nodes[j].data.value +", "+ 
+              anno +", "+ networkJSON.nodes[j].data.pid);
      }
+ 
   console.log("\n \n");
   for(var k = 0; k < networkJSON.edges.length; k++){
-      console.log("JSON edge.data (id, source, target): "+ 
+      console.log("JSON edge.data (id, source, target, edgeColor, label): "+ 
               networkJSON.edges[k].data.id +", "+ networkJSON.edges[k].data.source +", "+ 
-              networkJSON.edges[k].data.target);
+              networkJSON.edges[k].data.target +", "+ networkJSON.edges[k].data.edgeColor +", "+ networkJSON.edges[k].data.label);
      }
 
    // Define the stylesheet to be used for nodes & edges in the cytoscape.js container.
@@ -41,7 +74,10 @@ $(function(){ // on dom ready
           'width': '30px',
           'height': '30px',
           'background-color': 'data(conceptColor)',
-          'display': 'data(visibleDisplay)' // display: 'element' (show) or 'none' (hide).
+          'display': 'data(visibleDisplay)', // display: 'element' (show) or 'none' (hide).
+          // Show actual background images.
+//          'background-image': 'data(nodeImage)',
+//          'background-fit': 'contain' // can be 'none' (for original size), 'contain' (to fit inside node) or 'cover' (to cover the node).
          })
       .selector('edge')
         .css({
@@ -63,10 +99,12 @@ $(function(){ // on dom ready
           'transition-duration': '0.5s'
         })
       .selector(':selected')
-      .css({ // settings for highlight nodes in case of Shift+click multi-select.
+      .css({ // settings for highlight nodes in case of Shift+click multi-select event.
         'border-width': '3px',
         'border-color': '#333'
       });
+      
+   45;
 
    /** Define the default layout for the network, using CoLa layout from Cola.js (similar to the "Gem" layout in 
     * Ondex Web). */
@@ -76,7 +114,7 @@ $(function(){ // on dom ready
     fit: true, padding: 10, // padding around the simulation
     boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
     refresh: 1, // number of ticks per frame; higher is faster but more jerky
-    maxSimulationTime: 5000, // max length in ms to run the layout
+    maxSimulationTime: 8000, // 5000, // max length in ms to run the layout
     ungrabifyWhileSimulating: false, // so you can't drag nodes during layout
     // layout event callbacks
     ready: function() {}, // on layoutready
@@ -205,7 +243,71 @@ var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
 // cy.boxSelectionEnabled(true); // enable box selection (highlight & select multiple elements for moving via mouse click and drag).
 cy.boxSelectionEnabled(false); // to disable box selection & hence allow Panning, i.e., dragging the entire graph.
 
-/** Add a Qtip message to all the nodes & edges using QTip displaying their Concept Type & value..
+// Set requisite background image for each concept (node).
+cy.nodes().forEach(function( ele ) {
+  var conType= ele.data('conceptType');
+  console.log("set image>> ele.conceptType: "+ conType);
+  // get appropriate background image for this node.
+  var eleImage= 'image/'+ function(conType) {
+  var imgName= 'Gene';
+  if(conType === "Biological_Process") {
+     imgName= 'Bioogical_proccess';
+    }
+  else if(conType === "Cellular_Component") {
+       imgName= 'Cellular_component';
+      }
+  else if(conType === "Protein Domain") {
+     imgName= 'Protein_domain';
+    }
+  else if(conType === "Pathway") {
+     imgName= 'Pathway';
+    }
+  else if(conType === "Reaction") {
+     imgName= 'Reaction';
+    }
+  else if(conType === "Publication") {
+     imgName= 'Publication';
+    }
+  else if(conType === "Protein") {
+     imgName= 'Protein';
+    }
+  else if(conType === "Enzyme") {
+     imgName= 'Enzyme';
+    }
+  else if(conType === "Molecular_Function") {
+     imgName= 'Molecular_function';
+    }
+  else if(conType === "Enzyme_Classification") {
+     imgName= 'Enzyme_clasification';
+    }
+  else if(conType === "Trait Ontology") {
+     imgName= 'Trait_ontology';
+    }
+  else if((conType === "Compound") || (conType === "SNP")) {
+     imgName= 'Compound';
+    }
+  else if(conType === "Phenotype") {
+     imgName= 'Phenotype';
+    }
+  console.log("use image: "+ imgName);
+  return imgName;
+   } + '.png';
+
+  // Add these properties to this element's JSON.
+  ele.data('nodeImage', eleImage);
+  ele.data('nodeImageFit', 'contain');
+  // Set the background image-related properties of this concept (node) element.
+//  ele.css('background-image', ele.data('nodeImage'));
+//  ele.css('background-fit', ele.data('nodeImageFit'));
+ });
+// cy.layout(defaultNetworkLayout); // re-run the default layout algorithm.
+cy.nodes().css({ // Show actual background images.
+          'background-image': 'data(nodeImage)',
+          'background-fit': 'contain'
+         });
+
+/** Add a Qtip message to all the nodes & edges using QTip displaying their Concept Type & value when a 
+ * node/ edge is clicked.
  * Note: Specify 'node' or 'edge' to bind an event to a specific type of element.
  * e.g, cy.elements('node').qtip({ }); or cy.elements('edge').qtip({ }); */
 cy.elements().qtip({
@@ -213,10 +315,12 @@ cy.elements().qtip({
       var qtipMsg= "";
       try {
       if(this.isNode()) {
-         qtipMsg= "ID: "+ this.id() +", Concept: "+ this.data('conceptType') +", Value: "+ this.data('value');
+//         qtipMsg= "ID: "+ this.id() +", Type: "+ this.data('conceptType') +", Value: "+ this.data('value');
+         qtipMsg= "Concept Type: "+ this.data('conceptType') +", Value: "+ this.data('value') +", PID: "+ 
+                  this.data('pid') +"<br>"+"Annotation: "+ this.data('annotation');
         }
       else if(this.isEdge()) {
-              qtipMsg= "ID: "+ this.id() +", Edge Label: "+ this.data('label');
+              qtipMsg= "ID: "+ this.id() +", Relation Label: "+ this.data('label');
              }
       }
       catch(err) { qtipMsg= "Selected element is neither a Concept nor a Relation"; }
@@ -239,10 +343,11 @@ cy.elements().qtip({
     var info= "";
     try {
     if(thisElement.isNode()) {
-       info= "Element clicked: "+ thisElement.data('conceptType') +": "+ thisElement.data('value');
+       info= "Concept selected: "+ thisElement.data('conceptType') +", value: "+ thisElement.data('value') +
+               ", PID: "+ thisElement.data('pid');
       }
       else if(thisElement.isEdge()) {
-              info= "Element clicked: Relation id= "+ thisElement.id();
+              info= "Relation selected: id: "+ thisElement.id() +", Relation Label: "+ thisElement.data('label');
              }
       }
       catch(err) { info= "Selected element is neither a Concept nor a Relation"; }
@@ -252,6 +357,7 @@ cy.elements().qtip({
  /** Popup (context) menu: a circular Context Menu for each Node (concept) & Edge (relation) using the 'cxtmenu' jQuery plugin. */
  var contextMenu= {
     menuRadius: 75, // 100, // the radius of the circular menu in pixels
+    'font-size': '8px',
 
     // Use selector: '*' to set this circular Context Menu on all the elements of the core.
     /** Note: Specify selector: 'node' or 'edge' to restrict the context menu to a specific type of element. e.g, 
@@ -270,15 +376,16 @@ cy.elements().qtip({
              // Show Item info. in a new window.
              itemInfo.document.write("<html><body><b><u>Node details</u></b><br/>"+ nodeInfo +"</body></html>");*/
              var itemInfo= "";
-             $("#infoDialog").dialog();
+             $("#infoDialog").dialog(); // initialize a dialog box.
              try {
              if(this.isNode()) {
                 itemInfo= "Concept Type: "+ this.data('conceptType') +"<br/> Value: "+ this.data('value') +
-                     "<br/> <br/><u>Properties:</u> <br/> ID: "+ this.id() +"<br/> Shape: "+ 
-                     this.data('conceptShape') +"<br/> Color: "+ this.data('conceptColor');
+                     "<br/> <br/><u>Properties:</u> <br/> <u>PID:</u>: "+ this.data('pid') +"Annotation: "+ 
+                     this.data('annotation') +"<br/> <br/> Shape: "+ this.data('conceptShape') +
+                     "<br/> Color: "+ this.data('conceptColor');
                }
              else if(this.isEdge()) {
-                     itemInfo= "Relation ID= "+ this.id();
+                     itemInfo= "Relation ID= "+ this.id()+ "<br/> Label: "+ this.data('label');
                     }
              }
              catch(err) { itemInfo= "Selected element is neither a Concept nor a Relation"; }
@@ -300,31 +407,67 @@ cy.elements().qtip({
              this.hide(); // hide the selected 'node' element.
             }
         },
-            
+
         {
-         content: 'Relayout',
-         select: function() {
-             cy.reset(); // reset the graph's zooming & panning properties.
+         content: 'Hide by Type',
+         select: function() { // Hide all concepts (nodes) of the same type.
+             var thisConceptType= this.data('conceptType');
+             console.log("Hide by Type: this.Type: "+ thisConceptType);
+             cy.nodes().forEach(function( ele ) {
+              console.log("ele.conceptType: "+ ele.data('conceptType'));
+              if(ele.data('conceptType') === thisConceptType) {
+                 ele.hide();
+                }
+             });
             }
         },
             
         {
+         content: 'Relayout',
+         select: function() {
+             cy.layout(defaultNetworkLayout); // re-run the default layout algorithm.
+            }
+        },
+            
+        {
+         content: 'Reset',
+         select: function() {
+             cy.reset(); // reset the graph's zooming & panning properties.
+            }
+        },
+   /*     {
+         content: 'Export JSON',
+         select: function() {
+             var export_json= cy.json(); // Export the graph's JSON object.
+             // Export the graphJSON variable from the networkGraph.json file as a JSON object and add all 
+             // the required information to make it compatible for usage with the Cytoscape desktop 
+             // application.
+             var json_for_cytoscape= "{ \"data\" : { \"shared_name\" : \"networkGraph_for_Cytoscape\", \"name\" : \"networkGraph\", \"selected\" : true }, \"elements\" : "+networkJSON +" }";
+             // Write to file on the server.
+             
+             // Open new tab to allow user to download this file.
+             
+            }
+        },*/
+        {
          content: 'Show Selections',
          select: function() {
-             $("#infoDialog").dialog();
+             $("#infoDialog").dialog(); // initialize a dialog box.
              // Display details of all the selected elements: nodes & edges.
              var selections= "";
+             console.log("ShowSelections (Shift+click): selections= "+ selections);
              cy.nodes().forEach(function( ele ) {
+             console.log("Reading nodes/ ele.id: "+ ele.id());
                 if(ele.selected()) {
-                   selections += "Concept (node): id= "+ ele.id() +" ; "+ ele.data('conceptType') +" : "+ ele.data('value') +
-                           "<br/>";
+                   selections += ele.data('conceptType') +" : "+ ele.data('value') +" , PID: "+ ele.data('pid') + "<br/>";
                   }
              });
 
              cy.edges().forEach(function( ele ) {
+             console.log("Reading edges/ ele.id: "+ ele.id());
                 if(ele.selected()) {
-                   console.log("Element: Edge id= "+ ele.id() +" is "+ (ele.selected() ? 'selected':'not selected'));
-                   selections += "Relation (edge) id= "+ ele.id() +"<br/>";
+                   console.log("Element: Relation (edge) id= "+ ele.id() +" is "+ (ele.selected() ? 'selected':'not selected'));
+                   selections += "Relation ID= "+ ele.id() +" , label: "+ ele.data('label') +"<br/>";
                   }
              });
              $("#infoDialog").html(selections);
@@ -378,12 +521,16 @@ cy.cxtmenu(contextMenu); // set Context Menu for all the core elements.
       }
   }); */
 
- // Export the graph as a JSON object.
+ // Export the graph as a JSON object and print it.
  console.log("cy.json: ");
  console.log(cy.json());
 
- // Show the Item Info. window.
-/* $('#itemInfo').click(function() {
-   $('#itemInfo').slideToggle(300);
-  });*/
+ // Show the popup Info. diialog box.
+ $('#infoDialog').click(function() {
+   $('#infoDialog').slideToggle(300);
+  });
+  
+  // The actual Item Info. window (<div>).
+  
 }); // on dom ready
+
