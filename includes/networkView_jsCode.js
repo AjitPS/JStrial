@@ -305,6 +305,7 @@ cy.nodes().css({ // Show actual background images.
           'background-image': 'data(nodeImage)',
           'background-fit': 'contain'
          });
+/* add code here. */
 
 /** Add a Qtip message to all the nodes & edges using QTip displaying their Concept Type & value when a 
  * node/ edge is clicked.
@@ -357,7 +358,6 @@ cy.elements().qtip({
  /** Popup (context) menu: a circular Context Menu for each Node (concept) & Edge (relation) using the 'cxtmenu' jQuery plugin. */
  var contextMenu= {
     menuRadius: 75, // 100, // the radius of the circular menu in pixels
-    'font-size': '8px',
 
     // Use selector: '*' to set this circular Context Menu on all the elements of the core.
     /** Note: Specify selector: 'node' or 'edge' to restrict the context menu to a specific type of element. e.g, 
@@ -396,9 +396,41 @@ cy.elements().qtip({
         {
          content: 'Show All',
          select: function() {
-             cy.elements('node').show(); // show all nodes.
-             cy.elements('edge').show(); // show all edges
+             cy.elements('node').show(); // show all nodes using eles.show().
+             cy.elements('edge').show(); // show all edges using eles.show().
             }
+        },
+
+        {
+         content: 'Show neighbourhood',
+         select: function() { // Show all the nodes connected to the selected 'node' element.
+             console.log("Show neighborhood for nodeID: "+ this.id());
+//             cy.elements(this.neighborhood()).show();
+//             this.neighborhood().show();
+/*             var eles= cy.$(':selected').neighborhood();
+             console.log("Show neighborhood for nodeID: "+ this.id()+ " , eles: "+ eles);
+             eles.show();*/
+             cy.elements(this).neighborhood().show();
+/*             eles.forEach(function( ele ) {
+                 ele.show();
+             });*/
+             /*if(this.isNode()) {
+                var nodeID= this.id();
+                console.log("\n \n Show neighbourhood of concept: nodeID: "+ nodeID);
+                cy.edges().forEach(function( ele ) {
+                 var edgeSrc= ele.data('source');
+                 var edgeTarget= ele.data('target');
+                 console.log("edgeSrc: "+ edgeSrc +" , edgeTarget: "+ edgeTarget);
+                 if((edgeSrc === nodeID) || (edgeTarget === nodeID)) {
+                    ele.show();
+                   }
+                });
+               }
+               else {
+                $("#infoDialog").dialog();
+                $("#infoDialog").html("Selected functionality works only on concepts and not on relations.");
+               }*/
+           }
         },
 
         {
@@ -484,6 +516,7 @@ cy.elements().qtip({
     maxSpotlightRadius: 10, // 38, // the maximum radius in pixels of the spotlight
     itemColor: 'white', // the colour of text in the command's content
     itemTextShadowColor: 'black', // the text shadow colour of the command's content
+    itemFontSize: 8,
     zIndex: 9999 // the z-index of the ui div
  };
 
