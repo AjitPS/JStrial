@@ -71,13 +71,10 @@ $(function(){ // on dom ready
           'font-size': '8px',
           // Set node shape, color & display (visibility) depending on settings in the JSON var.
           'shape': 'data(conceptShape)', // 'triangle',
-          'width': '30px',
-          'height': '30px',
+          'width': '18px', // '22px', // '30px',
+          'height': '18px', // '22px', // '30px',
           'background-color': 'data(conceptColor)',
-          'display': 'data(visibleDisplay)', // display: 'element' (show) or 'none' (hide).
-          // Show actual background images.
-//          'background-image': 'data(nodeImage)',
-//          'background-fit': 'contain' // can be 'none' (for original size), 'contain' (to fit inside node) or 'cover' (to cover the node).
+          'display': 'data(visibleDisplay)' // display: 'element' (show) or 'none' (hide).
          })
       .selector('edge')
         .css({
@@ -243,13 +240,10 @@ var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
 // cy.boxSelectionEnabled(true); // enable box selection (highlight & select multiple elements for moving via mouse click and drag).
 cy.boxSelectionEnabled(false); // to disable box selection & hence allow Panning, i.e., dragging the entire graph.
 
-// Set requisite background image for each concept (node).
+// Set requisite background image for each concept (node) instead of using cytoscapeJS shapes.
 cy.nodes().forEach(function( ele ) {
   var conType= ele.data('conceptType');
-  console.log("set image>> ele.conceptType: "+ conType);
-  // get appropriate background image for this node.
-  var eleImage= 'image/'+ function(conType) {
-  var imgName= 'Gene';
+  var imgName= 'Gene'; // default
   if(conType === "Biological_Process") {
      imgName= 'Bioogical_proccess';
     }
@@ -289,23 +283,19 @@ cy.nodes().forEach(function( ele ) {
   else if(conType === "Phenotype") {
      imgName= 'Phenotype';
     }
-  console.log("use image: "+ imgName);
-  return imgName;
-   } + '.png';
+  var eleImage= 'image/'+ imgName +'.png';
 
   // Add these properties to this element's JSON.
   ele.data('nodeImage', eleImage);
-  ele.data('nodeImageFit', 'contain');
-  // Set the background image-related properties of this concept (node) element.
-//  ele.css('background-image', ele.data('nodeImage'));
-//  ele.css('background-fit', ele.data('nodeImageFit'));
+
+  console.log("data.nodeImage "+ ele.data('nodeImage'));
  });
-// cy.layout(defaultNetworkLayout); // re-run the default layout algorithm.
-cy.nodes().css({ // Show actual background images.
-          'background-image': 'data(nodeImage)',
-          'background-fit': 'contain'
-         });
-/* add code here. */
+
+ // Update the stylesheet for the Network Graph to show background images for Nodes.
+ cy.style().selector('node').css({ // Show actual background images.
+           'background-image': 'data(nodeImage)',
+           'background-fit': 'none' // can be 'none' (for original size), 'contain' (to fit inside node) or 'cover' (to cover the node).
+          }).update();
 
 /** Add a Qtip message to all the nodes & edges using QTip displaying their Concept Type & value when a 
  * node/ edge is clicked.
