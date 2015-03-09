@@ -5,22 +5,90 @@
  * multi-select (using Shift + click), CoLa.js & JSON.
  * @returns
  **/
+
+  /** Define the default layout for the network, using CoLa layout from Cola.js (similar to the "Gem" layout in 
+    * Ondex Web). */
+   var defaultNetworkLayout= {
+    name: 'cola', // CoLa layout, using Cola.v3.min.js & Cola.adaptor.js (Ondex Web: Gem)
+    animate: true, // false, 
+    animationDuration: 500, 
+    fit: true, padding: 10, // padding around the simulation
+    boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
+    refresh: 1, // number of ticks per frame; higher is faster but more jerky
+    maxSimulationTime: 8000, // 5000, // max length in ms to run the layout
+    ungrabifyWhileSimulating: false, // so you can't drag nodes during layout
+    // layout event callbacks
+    ready: function() {}, // on layoutready
+    stop: function() {}, // on layoutstop
+    // positioning options
+    randomize: false, // use random node positions at beginning of layout
+    avoidOverlap: true,
+    handleDisconnected: true, // if true, avoids disconnected components from overlapping
+    nodeSpacing: function( node ){ return 10; }, // for extra spacing around nodes
+    flow: undefined, // use DAG/ tree flow layout if specified, e.g. { axis: 'y', minSeparation: 30 }
+    alignment: undefined, // relative alignment constraints on nodes, e.g. function( node ){ return { x: 0, y: 1 } }
+    // different methods of specifying edge length, each can be a constant numerical value or a function like `function( edge ){ return 2; }`
+    edgeLength: undefined, // sets edge length directly in simulation
+    edgeSymDiffLength: undefined, // symmetric diff edge length in simulation
+    edgeJaccardLength: undefined, // jaccard edge length in simulation
+    // iterations of the cola algorithm; uses default values on undefined
+    unconstrIter: undefined, // unconstrained initial layout iterations
+    userConstIter: undefined, // initial layout iterations with user-specified constraints
+    allConstIter: undefined, // initial layout iterations with all constraints including non-overlap
+    // infinite layout options
+    infinite: false // overrides all other options for a forces-all-the-time mode
+   };
+
+// On startup
 $(function(){ // on dom ready
 //  var networkJSON= JSON.parse(graphJSON); // to parse JSON object containing node and edge data.
 //  var networkJSON= JSON.stringify(graphJSON); // if already parsed, to convert the JSON object to String.
   var networkJSON= graphJSON; // using the JSON object directly
 
+  /* Fetch JSON data from the relevant QTLNetMiner server using JQuery and Ajax instead of directly using 
+   * the example JSON file (networkGraph.json). This data is located on the QTLNetMiner servers under 
+   * /var/www/html/{organism}_data/ and can be accessed via the url below. */
+  var data_url = "https://ondex.rothamsted.ac.uk/poplar_data/";
+  // For testing via the QTLNetMiner test server, use:
+  //  var data_url = "https://qtlnetminer-test.rothamsted.ac.uk/poplar_data/";
+
+  var jsonFile= "result_1424791328834.json"; // hard-coded for now, retrieve file name from 
+  var jsonUrl= data_url + jsonFile; // using data_url from utils-config.js and json file name.
+
+/*  $.getJSON(jsonUrl, function( data ) {
+  var items = [];
+  $.each( data, function( key, val ) {
+    items.push( "<li id='" + key + "'>" + val + "</li>" );
+  });
+ 
+  $( "<ul/>", {
+    "class": "new-json-data-list",
+    html: items.join( "" )
+   }).appendTo( "body" );
+  }
+   // success handler.
+   
+  );*/
+    
+
   // Display 'networkJSON' elements.nodes data in console.
   for(var j = 0; j < networkJSON.nodes.length; j++){
-      console.log("JSON node.data (id, value, conceptType): "+ 
-              networkJSON.nodes[j].data.id +", "+ networkJSON.nodes[j].data.value +", "+ 
-              networkJSON.nodes[j].data.conceptType);
+      var anno= networkJSON.nodes[j].data.annotation;
+      if (anno.length>15) {
+          anno= anno.substring(0,15) +"..."; 
+         }
+      console.log("JSON node.data (id, type, conceptColor, shape, visibleDisplay, value, annotation, pid): "+ 
+              networkJSON.nodes[j].data.id +", "+ networkJSON.nodes[j].data.conceptType +", "+ 
+              networkJSON.nodes[j].data.conceptColor +", "+ networkJSON.nodes[j].data.conceptShape +", "+ 
+              networkJSON.nodes[j].data.visibleDisplay +", "+ networkJSON.nodes[j].data.value +", "+ 
+              anno +", "+ networkJSON.nodes[j].data.pid);
      }
+ 
   console.log("\n \n");
   for(var k = 0; k < networkJSON.edges.length; k++){
-      console.log("JSON edge.data (id, source, target): "+ 
+      console.log("JSON edge.data (id, source, target, edgeColor, label): "+ 
               networkJSON.edges[k].data.id +", "+ networkJSON.edges[k].data.source +", "+ 
-              networkJSON.edges[k].data.target);
+              networkJSON.edges[k].data.target +", "+ networkJSON.edges[k].data.edgeColor +", "+ networkJSON.edges[k].data.label);
      }
 
    // Define the stylesheet to be used for nodes & edges in the cytoscape.js container.
@@ -38,8 +106,8 @@ $(function(){ // on dom ready
           'font-size': '8px',
           // Set node shape, color & display (visibility) depending on settings in the JSON var.
           'shape': 'data(conceptShape)', // 'triangle',
-          'width': '30px',
-          'height': '30px',
+          'width': '18px', // '22px', // '30px',
+          'height': '18px', // '22px', // '30px',
           'background-color': 'data(conceptColor)',
           'display': 'data(visibleDisplay)' // display: 'element' (show) or 'none' (hide).
          })
@@ -63,99 +131,12 @@ $(function(){ // on dom ready
           'transition-duration': '0.5s'
         })
       .selector(':selected')
-      .css({ // settings for highlight nodes in case of Shift+click multi-select.
+      .css({ // settings for highlight nodes in case of Shift+click multi-select event.
         'border-width': '3px',
         'border-color': '#333'
       });
-
-   /** Define the default layout for the network, using CoLa layout from Cola.js (similar to the "Gem" layout in 
-    * Ondex Web). */
-   var defaultNetworkLayout= {
-    name: 'cola', // CoLa layout, using Cola.v3.min.js & Cola.adaptor.js (Ondex Web: Gem)
-    animate: true, // false, 
-    fit: true, padding: 10, // padding around the simulation
-    boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
-    refresh: 1, // number of ticks per frame; higher is faster but more jerky
-    maxSimulationTime: 5000, // max length in ms to run the layout
-    ungrabifyWhileSimulating: false, // so you can't drag nodes during layout
-    // layout event callbacks
-    ready: function() {}, // on layoutready
-    stop: function() {}, // on layoutstop
-    // positioning options
-    randomize: false, // use random node positions at beginning of layout
-    avoidOverlap: true,
-    handleDisconnected: true, // if true, avoids disconnected components from overlapping
-    nodeSpacing: function( node ){ return 10; }, // for extra spacing around nodes
-    flow: undefined, // use DAG/ tree flow layout if specified, e.g. { axis: 'y', minSeparation: 30 }
-    alignment: undefined, // relative alignment constraints on nodes, e.g. function( node ){ return { x: 0, y: 1 } }
-    // different methods of specifying edge length, each can be a constant numerical value or a function like `function( edge ){ return 2; }`
-    edgeLength: undefined, // sets edge length directly in simulation
-    edgeSymDiffLength: undefined, // symmetric diff edge length in simulation
-    edgeJaccardLength: undefined, // jaccard edge length in simulation
-    // iterations of the cola algorithm; uses default values on undefined
-    unconstrIter: undefined, // unconstrained initial layout iterations
-    userConstIter: undefined, // initial layout iterations with user-specified constraints
-    allConstIter: undefined, // initial layout iterations with all constraints including non-overlap
-    // infinite layout options
-    infinite: false // overrides all other options for a forces-all-the-time mode
-
-    // Other Layouts:
-/*       name: 'breadthfirst', // Breadth first layout (Ondex Web: Hierarchial)
-      fit: true, directed: true, padding: 10, circle: false, boundingBox: undefined, avoidOverlap: true, 
-      maximalAdjustments: 0, animate: false, animationDuration: 500, roots: undefined, // '#n12', 
-      ready: undefined, stop: undefined */
-
-/*    name: 'arbor', // Arbor layout using Arbor.js (Ondex Web: Kamada Kawai).
-    animate: true, maxSimulationTime: 5000, fit: true, padding: 30, boundingBox: undefined, 
-    ungrabifyWhileSimulating: false, ready: undefined, stop: undefined,
-    // forces used by arbor (use arbor default on undefined)
-    repulsion: undefined, stiffness: undefined, friction: undefined, gravity: true, fps: undefined, 
-    precision: undefined,
-    // static numbers or functions that dynamically return what these values should be for each element
-    // e.g. nodeMass: function(n){ return n.data('weight') }
-    nodeMass: undefined, edgeLength: undefined,
-    stepSize: 0.1, // smoothing of arbor bounding box
-    // function that returns true if the system is stable to indicate that the layout can be stopped
-    stableEnergy: function( energy ) {
-     var e = energy; 
-     return (e.max <= 0.5) || (e.mean <= 0.3);
-    },
-    // infinite layout options
-    infinite: false */
-
-/*    name: 'springy', // Springy layout, uses springy.js (OndexWeb: ForceDirected).
-    animate: true, maxSimulationTime: 4000, ungrabifyWhileSimulating: false, fit: true, padding: 30, 
-    boundingBox: undefined, random: false, infinite: false, ready: undefined, stop: undefined, 
-    // springy forces
-    stiffness: 400, repulsion: 400, damping: 0.5 */
-
-/*      name: 'circle', // Circle layout (Ondex Web: Circular)
-      directed: true, roots: undefined, // '#n12',
-      padding: 10, avoidOverlap: true */
-
-/*    name: 'dagre', // Dagre layout, using the Ranking algorithm from dagre.js (Ondex Web: RadialTree).
-    // dagre algorithm options, uses default value on undefined
-    nodeSep: undefined, // the separation between adjacent nodes in the same rank
-    edgeSep: undefined, // the separation between adjacent edges in the same rank
-    rankSep: undefined, // the separation between adjacent nodes in the same rank
-    rankDir: undefined, // 'TB' for top to bottom flow, 'LR' for left to right
-    minLen: function( edge ){ return 1; }, // number of ranks to keep between the source and target of the edge
-    // general layout options
-    fit: true, padding: 30, animate: false, animationDuration: 500, // duration of animation in ms if enabled
-    boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
-    ready: function(){}, stop: function(){} */
-
-/*    name: 'cose', // CytoscapeJS Cose layout
-    animate: false, avoidOverlap: true, roots: undefined, 
-    padding: 5 */
-
-/*    name: 'grid', // CytoscapeJS Grid layout
-    fit: true, padding: 30, boundingBox: undefined, avoidOverlap: true, animate: false, animationDuration: 500,
-    rows: undefined, // force num of rows in the grid
-    columns: undefined, // force num of cols in the grid
-    position: function( node ){}, // returns { row, col } for element
-    ready: undefined, stop: undefined */
-   };
+      
+   45;
 
 // Initialise a cystoscape container instance as a Javascript object.
 /* var cy= cytoscape({
@@ -205,7 +186,65 @@ var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
 // cy.boxSelectionEnabled(true); // enable box selection (highlight & select multiple elements for moving via mouse click and drag).
 cy.boxSelectionEnabled(false); // to disable box selection & hence allow Panning, i.e., dragging the entire graph.
 
-/** Add a Qtip message to all the nodes & edges using QTip displaying their Concept Type & value..
+// Set requisite background image for each concept (node) instead of using cytoscapeJS shapes.
+cy.nodes().forEach(function( ele ) {
+  var conType= ele.data('conceptType');
+  var imgName= 'Gene'; // default
+  if(conType === "Biological_Process") {
+     imgName= 'Bioogical_proccess';
+    }
+  else if(conType === "Cellular_Component") {
+       imgName= 'Cellular_component';
+      }
+  else if(conType === "Protein Domain") {
+     imgName= 'Protein_domain';
+    }
+  else if(conType === "Pathway") {
+     imgName= 'Pathway';
+    }
+  else if(conType === "Reaction") {
+     imgName= 'Reaction';
+    }
+  else if(conType === "Publication") {
+     imgName= 'Publication';
+    }
+  else if(conType === "Protein") {
+     imgName= 'Protein';
+    }
+  else if(conType === "Enzyme") {
+     imgName= 'Enzyme';
+    }
+  else if(conType === "Molecular_Function") {
+     imgName= 'Molecular_function';
+    }
+  else if(conType === "Enzyme_Classification") {
+     imgName= 'Enzyme_clasification';
+    }
+  else if(conType === "Trait Ontology") {
+     imgName= 'Trait_ontology';
+    }
+  else if((conType === "Compound") || (conType === "SNP")) {
+     imgName= 'Compound';
+    }
+  else if(conType === "Phenotype") {
+     imgName= 'Phenotype';
+    }
+  var eleImage= 'image/'+ imgName +'.png';
+
+  // Add these properties to this element's JSON.
+  ele.data('nodeImage', eleImage);
+
+  console.log("data.nodeImage "+ ele.data('nodeImage'));
+ });
+
+ // Update the stylesheet for the Network Graph to show background images for Nodes.
+ cy.style().selector('node').css({ // Show actual background images.
+           'background-image': 'data(nodeImage)',
+           'background-fit': 'none' // can be 'none' (for original size), 'contain' (to fit inside node) or 'cover' (to cover the node).
+          }).update();
+
+/** Add a Qtip message to all the nodes & edges using QTip displaying their Concept Type & value when a 
+ * node/ edge is clicked.
  * Note: Specify 'node' or 'edge' to bind an event to a specific type of element.
  * e.g, cy.elements('node').qtip({ }); or cy.elements('edge').qtip({ }); */
 cy.elements().qtip({
@@ -213,10 +252,12 @@ cy.elements().qtip({
       var qtipMsg= "";
       try {
       if(this.isNode()) {
-         qtipMsg= "ID: "+ this.id() +", Concept: "+ this.data('conceptType') +", Value: "+ this.data('value');
+//         qtipMsg= "ID: "+ this.id() +", Type: "+ this.data('conceptType') +", Value: "+ this.data('value');
+         qtipMsg= "Concept Type: "+ this.data('conceptType') +", Value: "+ this.data('value') +", PID: "+ 
+                  this.data('pid') +"<br>"+"Annotation: "+ this.data('annotation');
         }
       else if(this.isEdge()) {
-              qtipMsg= "ID: "+ this.id() +", Edge Label: "+ this.data('label');
+              qtipMsg= "ID: "+ this.id() +", Relation Label: "+ this.data('label');
              }
       }
       catch(err) { qtipMsg= "Selected element is neither a Concept nor a Relation"; }
@@ -239,10 +280,11 @@ cy.elements().qtip({
     var info= "";
     try {
     if(thisElement.isNode()) {
-       info= "Element clicked: "+ thisElement.data('conceptType') +": "+ thisElement.data('value');
+       info= "Concept selected: "+ thisElement.data('conceptType') +", value: "+ thisElement.data('value') +
+               ", PID: "+ thisElement.data('pid');
       }
       else if(thisElement.isEdge()) {
-              info= "Element clicked: Relation id= "+ thisElement.id();
+              info= "Relation selected: id: "+ thisElement.id() +", Relation Label: "+ thisElement.data('label');
              }
       }
       catch(err) { info= "Selected element is neither a Concept nor a Relation"; }
@@ -262,23 +304,24 @@ cy.elements().qtip({
         {
          content: 'Item Info',
          select: function() {
-        /*     itemInfo= window.open("ItemInfo.html", "itemInfoWindow", 
+/*             itemInfo= window.open("ItemInfo.html", "itemInfoWindow", 
                     "height=200, width=400, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=no, titlebar=no, directories=no, status=no");
              var nodeInfo= "<div>Concept Type: "+ this.data('conceptType') +"<br/> Value: "+ this.data('value') +
                      "<br/> <br/><u>Properties:</u> <br/> id: "+ this.id() +"<br/> Shape: "+ this.data('conceptShape') +
                      "<br/> Color: "+ this.data('conceptColor') +"</div>";
              // Show Item info. in a new window.
-             itemInfo.document.write("<html><body><b><u>Node details</u></b><br/>"+ nodeInfo +"</body></html>");*/
+             itemInfo.document.write("<html><body><b><u>Node details</u></b><br/>"+ nodeInfo +"</body></html>"); */
              var itemInfo= "";
-             $("#infoDialog").dialog();
+             $("#infoDialog").dialog(); // initialize a dialog box.
              try {
              if(this.isNode()) {
                 itemInfo= "Concept Type: "+ this.data('conceptType') +"<br/> Value: "+ this.data('value') +
-                     "<br/> <br/><u>Properties:</u> <br/> ID: "+ this.id() +"<br/> Shape: "+ 
-                     this.data('conceptShape') +"<br/> Color: "+ this.data('conceptColor');
+                     "<br/> <br/><u>Properties:</u> <br/> PID: "+ this.data('pid') +"<br/>Annotation: "+ 
+                     this.data('annotation') +"<br/> <br/><u>Display:</u><br/> Shape: "+ this.data('conceptShape') +
+                     "<br/> Color: "+ this.data('conceptColor');
                }
              else if(this.isEdge()) {
-                     itemInfo= "Relation ID= "+ this.id();
+                     itemInfo= "Relation ID= "+ this.id()+ "<br/> Label: "+ this.data('label');
                     }
              }
              catch(err) { itemInfo= "Selected element is neither a Concept nor a Relation"; }
@@ -289,8 +332,8 @@ cy.elements().qtip({
         {
          content: 'Show All',
          select: function() {
-             cy.elements('node').show(); // show all nodes.
-             cy.elements('edge').show(); // show all edges
+             cy.elements('node').show(); // show all nodes using eles.show().
+             cy.elements('edge').show(); // show all edges using eles.show().
             }
         },
 
@@ -300,33 +343,63 @@ cy.elements().qtip({
              this.hide(); // hide the selected 'node' element.
             }
         },
-            
+
         {
-         content: 'Relayout',
-         select: function() {
-             cy.reset(); // reset the graph's zooming & panning properties.
+         content: 'Hide by Type',
+         select: function() { // Hide all concepts (nodes) of the same type.
+             var thisConceptType= this.data('conceptType');
+             console.log("Hide by Type: this.Type: "+ thisConceptType);
+             cy.nodes().forEach(function( ele ) {
+              console.log("ele.conceptType: "+ ele.data('conceptType'));
+              if(ele.data('conceptType') === thisConceptType) {
+                 ele.hide();
+                }
+             });
             }
         },
             
         {
+         content: 'Reset',
+         select: function() {
+             cy.reset(); // reset the graph's zooming & panning properties.
+            }
+        },
+   /*     {
+         content: 'Export JSON',
+         select: function() {
+             var export_json= cy.json(); // Export the graph's JSON object.
+             // Export the graphJSON variable from the networkGraph.json file as a JSON object and add all 
+             // the required information to make it compatible for usage with the Cytoscape desktop 
+             // application.
+             var json_for_cytoscape= "{ \"data\" : { \"shared_name\" : \"networkGraph_for_Cytoscape\", \"name\" : \"networkGraph\", \"selected\" : true }, \"elements\" : "+networkJSON +" }";
+             // Write to file on the server.
+             
+             // Open new tab to allow user to download this file.
+             
+            }
+        },*/
+        {
          content: 'Show Selections',
          select: function() {
-             $("#infoDialog").dialog();
+             $("#infoDialog").dialog(); // initialize a dialog box.
              // Display details of all the selected elements: nodes & edges.
              var selections= "";
+//             console.log("ShowSelections (Shift+click): selections= "+ selections);
              cy.nodes().forEach(function( ele ) {
+//             console.log("Reading nodes/ ele.id: "+ ele.id());
                 if(ele.selected()) {
-                   selections += "Concept (node): id= "+ ele.id() +" ; "+ ele.data('conceptType') +" : "+ ele.data('value') +
-                           "<br/>";
+                   selections += ele.data('conceptType') +" : "+ ele.data('value') +" , PID: "+ ele.data('pid') + "<br/><br/>";
                   }
              });
 
              cy.edges().forEach(function( ele ) {
+//             console.log("Reading edges/ ele.id: "+ ele.id());
                 if(ele.selected()) {
-                   console.log("Element: Edge id= "+ ele.id() +" is "+ (ele.selected() ? 'selected':'not selected'));
-                   selections += "Relation (edge) id= "+ ele.id() +"<br/>";
+//                   console.log("Element: Relation (edge) id= "+ ele.id() +" is "+ (ele.selected() ? 'selected':'not selected'));
+                   selections += "Relation ID= "+ ele.id() +" , label: "+ ele.data('label') +"<br/>";
                   }
              });
+             console.log("ShowSelections (Shift+click): selections= "+ selections);
              $("#infoDialog").html(selections);
             }
         }
@@ -341,6 +414,7 @@ cy.elements().qtip({
     maxSpotlightRadius: 10, // 38, // the maximum radius in pixels of the spotlight
     itemColor: 'white', // the colour of text in the command's content
     itemTextShadowColor: 'black', // the text shadow colour of the command's content
+    itemFontSize: 8,
     zIndex: 9999 // the z-index of the ui div
  };
 
@@ -378,12 +452,184 @@ cy.cxtmenu(contextMenu); // set Context Menu for all the core elements.
       }
   }); */
 
- // Export the graph as a JSON object.
+ // Export the graph as a JSON object and print it.
  console.log("cy.json: ");
  console.log(cy.json());
 
- // Show the Item Info. window.
-/* $('#itemInfo').click(function() {
-   $('#itemInfo').slideToggle(300);
-  });*/
+ // Show the popup Info. dialog box.
+ $('#infoDialog').click(function() {
+   $('#infoDialog').slideToggle(300);
+  });
+  
+  // Toggling between various Layout types.
+
+  // The actual Item Info. window (<div>).
+  
 }); // on dom ready
+
+  // Show concept neighbourhood.
+  function showNeighbourhood() {
+   var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
+   // Show all the nodes connected to the selected concept 'node' element.
+   cy.nodes().forEach(function( ele ) {
+       if(ele.selected()) {
+          console.log("Show neighborhood for nodeID: "+ ele.id());
+          // this.id();
+          ele.neighborhood.show();
+       //   this.neighborhood().show();
+         }
+      });
+   //
+//   cy.elements(this.neighborhood()).show();
+/*   var eles= cy.$(':selected').neighborhood();
+     console.log("Show neighborhood for nodeID: "+ this.id()+ " , eles: "+ eles);
+     eles.show();*/
+   cy.elements(this).neighborhood().show();
+/*   eles.forEach(function( ele ) {
+                  ele.show();
+                 });*/
+ /*  if(this.isNode()) {
+        var nodeID= this.id();
+        console.log("\n \n Show neighbourhood of concept: nodeID: "+ nodeID);
+        cy.edges().forEach(function( ele ) {
+                   var edgeSrc= ele.data('source');
+                   var edgeTarget= ele.data('target');
+                   console.log("edgeSrc: "+ edgeSrc +" , edgeTarget: "+ edgeTarget);
+                   if((edgeSrc === nodeID) || (edgeTarget === nodeID)) {
+                      ele.show();
+                     }
+                  });
+       }
+     else {
+       $("#infoDialog").dialog();
+       $("#infoDialog").html("Selected functionality works only on concepts and not on relations.");
+      }
+*/
+  }
+
+  // Set default (CoLa) layout.
+  function setDefaultLayout() {
+   var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
+   cy.layout(defaultNetworkLayout); // run the default (CoLa) layout algorithm.
+  }
+
+  // Set CoSE layout.
+  function setCoseLayout() {
+   var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
+   var coseNetworkLayout= {
+    name: 'cose', // CytoscapeJS Cose layout
+    animate: true /*false*/, animationDuration: 500, avoidOverlap: true, handleDisconnected: true, 
+    roots: undefined, padding: 5 };
+   cy.layout(coseNetworkLayout); // run the CoSE layout algorithm.
+  }
+
+  // Set Arbor layout.
+  function setArborLayout() {
+   var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
+   var arborNetworkLayout= {
+    name: 'arbor', // Arbor layout using Arbor.js (Ondex Web: Kamada Kawai).
+    animate: true, animationDuration: 500, maxSimulationTime: 5000, fit: true, padding: 30, 
+    boundingBox: undefined, ungrabifyWhileSimulating: false, ready: undefined, stop: undefined,
+    avoidOverlap: true, handleDisconnected: true, 
+    // forces used by arbor (use arbor default on undefined)
+    repulsion: undefined, stiffness: undefined, friction: undefined, gravity: true, fps: undefined, 
+    precision: undefined,
+    // static numbers or functions that dynamically return what these values should be for each element
+    // e.g. nodeMass: function(n){ return n.data('weight') }
+    nodeMass: undefined, edgeLength: undefined,
+    stepSize: 0.1, // smoothing of arbor bounding box
+    // function that returns true if the system is stable to indicate that the layout can be stopped
+    stableEnergy: function( energy ) {
+     var e = energy; 
+     return (e.max <= 0.5) || (e.mean <= 0.3);
+    },
+    // infinite layout options
+    infinite: false
+   };
+   cy.layout(arborNetworkLayout); // run the Arbor layout algorithm.
+  }
+
+  // Set Springy layout.
+  function setSpringyLayout() {
+   var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
+   var springyNetworkLayout= {
+    name: 'springy', // Springy layout, uses springy.js (OndexWeb: ForceDirected).
+    animate: false /*true*/, animationDuration: 500, maxSimulationTime: 1000, ungrabifyWhileSimulating: false, 
+    fit: true, padding: 30, avoidOverlap: true, handleDisconnected: true, 
+    boundingBox: undefined, random: false, infinite: false, ready: undefined, stop: undefined, 
+    // springy forces
+    stiffness: 400, repulsion: 400, damping: 0.5
+   };
+   cy.layout(springyNetworkLayout); // run the Springy layout algorithm.
+  }
+
+  // Set Dagre layout.
+  function setTreeLayout() {
+   var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
+   var dagreNetworkLayout= {
+    name: 'dagre', // Dagre layout, using the Ranking algorithm from dagre.js (Ondex Web: RadialTree).
+    // dagre algorithm options, uses default value on undefined
+    nodeSep: undefined, // the separation between adjacent nodes in the same rank
+    edgeSep: undefined, // the separation between adjacent edges in the same rank
+    rankSep: undefined, // the separation between adjacent nodes in the same rank
+    rankDir: undefined, // 'TB' for top to bottom flow, 'LR' for left to right
+    minLen: function( edge ){ return 1; }, // number of ranks to keep between the source and target of the edge
+    // general layout options
+    fit: true, padding: 30, animate: false, animationDuration: 500, // duration of animation in ms if enabled
+    avoidOverlap: true, handleDisconnected: true, 
+    boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
+    ready: function(){}, stop: function(){}
+   };
+   cy.layout(dagreNetworkLayout); // run the Dagre layout algorithm.
+  }
+
+  // Set Circle layout.
+  function setCircleLayout() {
+   var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
+   var circleNetworkLayout= {
+      name: 'circle', // Circle layout (Ondex Web: Circular)
+      directed: true, roots: undefined, // '#n12',
+      padding: 10, avoidOverlap: true, handleDisconnected: true 
+   };
+   cy.layout(circleNetworkLayout); // run the Circle layout.
+  }
+
+  // Set Grid layout.
+  function setGridLayout() {
+   var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
+   var gridNetworkLayout= {
+    name: 'grid', // CytoscapeJS Grid layout
+    fit: true, padding: 30, boundingBox: undefined, avoidOverlap: true, handleDisconnected: true, 
+    animate: false, animationDuration: 500,
+    rows: undefined, // force num of rows in the grid
+    columns: undefined, // force num of cols in the grid
+    position: function( node ){}, // returns { row, col } for element
+    ready: undefined, stop: undefined };
+   cy.layout(gridNetworkLayout); // run the Grid layout.
+  }
+
+  // Set Breadthfirst layout.
+  function setBreadthfirstLayout() {
+   var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
+   var bfNetworkLayout= {
+      name: 'breadthfirst', // Breadth first layout (Ondex Web: Hierarchial)
+      fit: true, directed: true, padding: 10, circle: false, boundingBox: undefined, avoidOverlap: true, 
+      handleDisconnected: true, maximalAdjustments: 0, animate: false, animationDuration: 500, 
+      roots: undefined, // '#n12', 
+      ready: undefined, stop: undefined
+   };
+   cy.layout(bfNetworkLayout); // run the Breadthfirst layout.
+  }
+
+  // Show/ Hide labels for concepts and relations.
+  function showOrHideLabels() {
+   var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
+   console.log("cy.hideLabelsOnViewport= "+ cy.hideLabelsOnViewport);
+   if(cy.hideLabelsOnViewport === "false") {
+      cy.hideLabelsOnViewport= "true";
+     }
+   else {
+      cy.hideLabelsOnViewport= "false";
+     }
+  }
+

@@ -9,8 +9,6 @@
 <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="http://cytoscape.github.io/cytoscape.js/api/cytoscape.js-latest/cytoscape.min.js"></script> -->
 <script src="includes/lib/jquery-ui.js"></script>
-<script src="includes/lib/cola.v3.min.js"></script>
-<script src="includes/lib/cola.adaptor.js"></script>
 <script src="includes/lib/cytoscape-cxtmenu.js"></script>
 <!-- <script src="includes/lib/jquery.cytoscape.js-toolbar.js"></script> -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.js"></script>
@@ -19,22 +17,62 @@
 <script src="http://medialize.github.io/jQuery-contextMenu/src/jquery.contextMenu.js" type="text/javascript"></script>
 <link href="http://medialize.github.io/jQuery-contextMenu/src/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
 <script src="http://medialize.github.io/jQuery-contextMenu/src/jquery.ui.position.js" type="text/javascript"></script>
+<script src="includes/lib/cola.v3.min.js"></script>
+<script src="includes/lib/cola.adaptor.js"></script>
 
+<!-- Other Layouts -->
+<script src="includes/lib/arbor.js"></script>
+<script src="includes/lib/dagre.js"></script>
+<script src="includes/lib/springy.js"></script>
+
+<!-- <script type="text/javascript" src="includes/networkGraph_small_new.json"></script> -->
 <script type="text/javascript" src="includes/networkGraph.json"></script>
+<!-- <script type="text/javascript" src="includes/networkGraph_small.json"></script> -->
+<!-- <script type="text/javascript" src="includes/result_poplar.json"></script> -->
 <script src="includes/networkView_jsCode.js"></script>
-
-<!-- <script src="includes/lib/arbor.js"></script> -->
-<!-- <script src="includes/lib/dagre.js"></script> -->
-<!-- <script src="includes/lib/springy.js"></script> -->
 
 </head>
 <body>
+<b>Network Graph using CytoscapeJS</b>
+<br/><br/>
+<div id=layouts_container>
+<table id=layouts_frame cellspacing=1>
+<thead><u>Layouts:</u></thead>
+<tr>
+    <td align=center><input type="radio" name="layoutButton" id="default" value="Default layout" onclick="setDefaultLayout();" checked>Default (CoLa)</td>
+    <td align=center><input type="radio" name="layoutButton" id="circle" value="Circle layout" onclick="setCircleLayout();">Circular</td>
+    <td align=center><input type="radio" name="layoutButton" id="arbor" value="Arbor layout" onclick="setArborLayout();">Arbor</td>
+    <td align=center><input type="radio" name="layoutButton" id="cose" value="Cose layout" onclick="setCoseLayout();">CoSE</td>
+<!--</tr>
+<tr>-->
+    <td align=center><input type="radio" name="layoutButton" id="dagre" value="Tree layout" onclick="setTreeLayout();">Tree</td>
+    <td align=center><input type="radio" name="layoutButton" id="breadthfirst" value="Breadthfirst layout" onclick="setBreadthfirstLayout();">Breadthfirst</td>
+    <td align=center><input type="radio" name="layoutButton" id="springy" value="Springy layout" onclick="setSpringyLayout();">Springy</td>
+    <td align=center><input type="radio" name="layoutButton" id="grid" value="Grid layout" onclick="setGridLayout();">Grid</td>
+</tr>
+</table>
+</div>
+
+<hr>
+
+<!--
+<div>Show concept neighbourhood: <input type="button" value="Show Neighbourhood" onclick="showNeighbourhood();">
+Show/ hide labels for concepts and relations: <input type="button" value="Show/ hide labels" onclick="showOrHideLabels();">
+</div>-->
+<br/>
+
 <!-- CytoscapeJS container -->
 <div id="cy"></div>
 <br/>
 
-<!-- Dialog box to show Item Info./ list of Selected elements -->
-<div id="infoDialog" title="Item Info."></div>
+<!-- Information dialog box to show clicked items' Info./ list of Selected elements -->
+<div id="infoDialog"></div>
+<br/>
+
+<!-- JTable to show Item Info. -->
+<div id="itemInfo" title="Item Info"></div>
+<!-- <div id="itemInfo" title="Item Info" style="border: thin">Item Info</div> -->
+<br/>
 
 <!-- Legend container with pictures -->
 <div id=legend_picture>
