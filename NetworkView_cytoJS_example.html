@@ -26,8 +26,8 @@
 <script src="includes/lib/springy.js"></script>
 
 <!-- <script type="text/javascript" src="includes/networkGraph_small_new.json"></script> -->
-<script type="text/javascript" src="includes/networkGraph.json"></script>
-<!-- <script type="text/javascript" src="includes/networkGraph_small.json"></script> -->
+<!--<script type="text/javascript" src="includes/networkGraph.json"></script> -->
+<script type="text/javascript" src="includes/networkGraph_20150109042806.json"></script>
 <!-- <script type="text/javascript" src="includes/result_poplar.json"></script> -->
 <script src="includes/networkView_jsCode.js"></script>
 
@@ -42,7 +42,7 @@
     <td align=center><input type="radio" name="layoutButton" id="default" value="Default layout" onclick="setDefaultLayout();" checked>Default (CoLa)</td>
     <td align=center><input type="radio" name="layoutButton" id="circle" value="Circle layout" onclick="setCircleLayout();">Circular</td>
     <td align=center><input type="radio" name="layoutButton" id="arbor" value="Arbor layout" onclick="setArborLayout();">Arbor</td>
-    <td align=center><input type="radio" name="layoutButton" id="cose" value="Cose layout" onclick="setCoseLayout();">CoSE</td>
+    <td align=center><input type="radio" name="layoutButton" id="cose" value="Cose layout" onclick="setCoseLayout();">Cose</td>
 <!--</tr>
 <tr>-->
     <td align=center><input type="radio" name="layoutButton" id="dagre" value="Tree layout" onclick="setTreeLayout();">Tree</td>
@@ -55,10 +55,18 @@
 
 <hr>
 
-<!--
 <div>Show concept neighbourhood: <input type="button" value="Show Neighbourhood" onclick="showNeighbourhood();">
-Show/ hide labels for concepts and relations: <input type="button" value="Show/ hide labels" onclick="showOrHideLabels();">
-</div>-->
+Search by concept value: <input type="text" id="txtSearch" placeholder="Search..." /> <input type="button" value="Search" onclick="findConcept(document.getElementById('txtSearch').value);">
+Reset graph: <input type="button" value="Reset" onclick="resetGraph();">
+</div>
+<br/>
+<div>
+Annotate relations by attribute: <input type="button" value="Annotate" onclick="annotateByAttribute();">
+Export image: <a id="downloadImg" download="network_graph.jpg"></a>
+<input type="button" value="Export Image" onclick="exportAsImage();">
+Export JSON: <input type="button" value="Export JSON" onclick="exportAsJson();">
+<!-- Show/ hide labels for concepts and relations: <input type="button" value="Show/ hide labels" onclick="showOrHideLabels();"> -->
+</div>
 <br/>
 
 <!-- CytoscapeJS container -->

@@ -358,12 +358,12 @@ cy.elements().qtip({
             }
         },
             
-        {
+/*        {
          content: 'Reset',
          select: function() {
              cy.reset(); // reset the graph's zooming & panning properties.
             }
-        },
+        },*/
    /*     {
          content: 'Export JSON',
          select: function() {
@@ -452,9 +452,6 @@ cy.cxtmenu(contextMenu); // set Context Menu for all the core elements.
       }
   }); */
 
- // Export the graph as a JSON object and print it.
- console.log("cy.json: ");
- console.log(cy.json());
 
  // Show the popup Info. dialog box.
  $('#infoDialog').click(function() {
@@ -467,65 +464,31 @@ cy.cxtmenu(contextMenu); // set Context Menu for all the core elements.
   
 }); // on dom ready
 
-  // Show concept neighbourhood.
-  function showNeighbourhood() {
-   var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
-   // Show all the nodes connected to the selected concept 'node' element.
-   cy.nodes().forEach(function( ele ) {
-       if(ele.selected()) {
-          console.log("Show neighborhood for nodeID: "+ ele.id());
-          // this.id();
-          ele.neighborhood.show();
-       //   this.neighborhood().show();
-         }
-      });
-   //
-//   cy.elements(this.neighborhood()).show();
-/*   var eles= cy.$(':selected').neighborhood();
-     console.log("Show neighborhood for nodeID: "+ this.id()+ " , eles: "+ eles);
-     eles.show();*/
-   cy.elements(this).neighborhood().show();
-/*   eles.forEach(function( ele ) {
-                  ele.show();
-                 });*/
- /*  if(this.isNode()) {
-        var nodeID= this.id();
-        console.log("\n \n Show neighbourhood of concept: nodeID: "+ nodeID);
-        cy.edges().forEach(function( ele ) {
-                   var edgeSrc= ele.data('source');
-                   var edgeTarget= ele.data('target');
-                   console.log("edgeSrc: "+ edgeSrc +" , edgeTarget: "+ edgeTarget);
-                   if((edgeSrc === nodeID) || (edgeTarget === nodeID)) {
-                      ele.show();
-                     }
-                  });
-       }
-     else {
-       $("#infoDialog").dialog();
-       $("#infoDialog").html("Selected functionality works only on concepts and not on relations.");
-      }
-*/
+  var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
+
+  // Reset: Re-position the network graph.
+  function resetGraph() {
+   cy.reset(); // reset the graph's zooming & panning properties.
   }
 
-  // Set default (CoLa) layout.
+  // Relayout: Set default (CoLa) layout.
   function setDefaultLayout() {
-   var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
    cy.layout(defaultNetworkLayout); // run the default (CoLa) layout algorithm.
   }
 
-  // Set CoSE layout.
+  // Set Cose layout.
+  /* Slow and performance- hampering */
   function setCoseLayout() {
-   var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
    var coseNetworkLayout= {
     name: 'cose', // CytoscapeJS Cose layout
-    animate: true /*false*/, animationDuration: 500, avoidOverlap: true, handleDisconnected: true, 
+    animate: false /*true*/, animationDuration: 500, avoidOverlap: true, handleDisconnected: true, 
+    boundingBox: undefined, random: false, infinite: false, ready: undefined, stop: undefined, 
     roots: undefined, padding: 5 };
    cy.layout(coseNetworkLayout); // run the CoSE layout algorithm.
   }
 
   // Set Arbor layout.
   function setArborLayout() {
-   var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
    var arborNetworkLayout= {
     name: 'arbor', // Arbor layout using Arbor.js (Ondex Web: Kamada Kawai).
     animate: true, animationDuration: 500, maxSimulationTime: 5000, fit: true, padding: 30, 
@@ -551,7 +514,6 @@ cy.cxtmenu(contextMenu); // set Context Menu for all the core elements.
 
   // Set Springy layout.
   function setSpringyLayout() {
-   var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
    var springyNetworkLayout= {
     name: 'springy', // Springy layout, uses springy.js (OndexWeb: ForceDirected).
     animate: false /*true*/, animationDuration: 500, maxSimulationTime: 1000, ungrabifyWhileSimulating: false, 
@@ -565,7 +527,6 @@ cy.cxtmenu(contextMenu); // set Context Menu for all the core elements.
 
   // Set Dagre layout.
   function setTreeLayout() {
-   var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
    var dagreNetworkLayout= {
     name: 'dagre', // Dagre layout, using the Ranking algorithm from dagre.js (Ondex Web: RadialTree).
     // dagre algorithm options, uses default value on undefined
@@ -585,7 +546,6 @@ cy.cxtmenu(contextMenu); // set Context Menu for all the core elements.
 
   // Set Circle layout.
   function setCircleLayout() {
-   var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
    var circleNetworkLayout= {
       name: 'circle', // Circle layout (Ondex Web: Circular)
       directed: true, roots: undefined, // '#n12',
@@ -594,9 +554,20 @@ cy.cxtmenu(contextMenu); // set Context Menu for all the core elements.
    cy.layout(circleNetworkLayout); // run the Circle layout.
   }
 
+  // Set Breadthfirst layout.
+  function setBreadthfirstLayout() {
+   var bfNetworkLayout= {
+      name: 'breadthfirst', // Breadth first layout (Ondex Web: Hierarchial)
+      fit: true, directed: true, padding: 10, circle: false, boundingBox: undefined, avoidOverlap: true, 
+      handleDisconnected: true, maximalAdjustments: 0, animate: false, animationDuration: 500, 
+      roots: undefined, // '#n12', 
+      ready: undefined, stop: undefined
+   };
+   cy.layout(bfNetworkLayout); // run the Breadthfirst layout.
+  }
+
   // Set Grid layout.
   function setGridLayout() {
-   var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
    var gridNetworkLayout= {
     name: 'grid', // CytoscapeJS Grid layout
     fit: true, padding: 30, boundingBox: undefined, avoidOverlap: true, handleDisconnected: true, 
@@ -608,22 +579,23 @@ cy.cxtmenu(contextMenu); // set Context Menu for all the core elements.
    cy.layout(gridNetworkLayout); // run the Grid layout.
   }
 
-  // Set Breadthfirst layout.
-  function setBreadthfirstLayout() {
-   var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
-   var bfNetworkLayout= {
-      name: 'breadthfirst', // Breadth first layout (Ondex Web: Hierarchial)
-      fit: true, directed: true, padding: 10, circle: false, boundingBox: undefined, avoidOverlap: true, 
-      handleDisconnected: true, maximalAdjustments: 0, animate: false, animationDuration: 500, 
-      roots: undefined, // '#n12', 
-      ready: undefined, stop: undefined
-   };
-   cy.layout(bfNetworkLayout); // run the Breadthfirst layout.
+ // Export the graph as a JSON object and allow users to save it.
+  function exportAsJson() {
+   console.log("cy.json: ");
+   console.log(cy.json());
+  }
+  
+  // Export the graph as a .png image and allow users to save it.
+  function exportAsImage() {
+   // Export as .png image
+   var png64= cy.png();
+
+   // Put the png data in an img tag.
+   $('#png-eg').attr('src', png64);
   }
 
   // Show/ Hide labels for concepts and relations.
   function showOrHideLabels() {
-   var cy= $('#cy').cytoscape('get'); // now we have a global reference to `cy`
    console.log("cy.hideLabelsOnViewport= "+ cy.hideLabelsOnViewport);
    if(cy.hideLabelsOnViewport === "false") {
       cy.hideLabelsOnViewport= "true";
@@ -633,3 +605,98 @@ cy.cxtmenu(contextMenu); // set Context Menu for all the core elements.
      }
   }
 
+  // Search the graph for a concept.
+  function findConcept(conceptName) {
+   console.log("Search for concept value: "+ conceptName);
+   var foundID;
+//   var foundEles= cy.collection();
+   cy.nodes().forEach(function( ele ) {
+//       if(ele.data('visibleDisplay') === 'element') {
+          if(ele.data('value').indexOf(conceptName) > -1) {
+//             foundEles.add(ele); // add to collection
+             console.log("Value found: "+ ele.data('value'));
+             foundID= ele.id();
+            }
+//        }
+      });
+   cy.$(foundID).select();
+//   console.log("foundEles: "+ foundEles);
+//   foundEles.select(); // select the found concepts.
+
+/*   var bfs = cy.elements().bfs('#e', function(i, depth) {
+       if(this.data('visibleDisplay') === 'element') {
+          if(this.data('value') === conceptName) {
+             return true;
+            }
+         }
+   }, false);
+
+   var path = bfs.path; // path to found node
+   var found = bfs.found; // found node
+
+   // Select the path
+   path.select();*/
+  }
+
+  // Show concept neighbourhood.
+  function showNeighbourhood() {
+   var eleID;
+   var neighbourArray= new Array();
+   var neighbours= cy.collection();
+   // Find the selected concept 'node' element.
+   cy.nodes().forEach(function( ele ) {
+       if(ele.selected()) {
+          eleID= ele.id();
+          console.log("Show neighborhood for nodeID: "+ eleID);
+//          neighbours.add(ele); // add to collection
+          // this.id();
+//          ele.neighborhood.show(); // HERE.
+         }
+      });
+//      neighbours.neighborhood().show();
+//      neighbours.siblings().show();
+   // Find its connected neighbours.
+   cy.edges().forEach(function( edg ) {
+       if(edg.data('source') === eleID) {
+          neighbourArray[neighbourArray.length]= edg.data('target');
+         }
+       else if(edg.data('target') === eleID) {
+          neighbourArray[neighbourArray.length]= edg.data('source');
+         }
+      });
+   // Add the array to the collection.
+   neighbours.add(neighbourArray);
+   neighbours.show();
+   // Show all the nodes connected to the selected concept 'node' element.
+/*   neighbourArray.forEach(function( eleNeighbour ) {
+          eleNeighbour.show();
+         });*/
+   
+       //   this.neighborhood().show();
+   //
+//   cy.elements(this.neighborhood()).show();
+/*   var eles= cy.$(':selected').neighborhood();
+     console.log("Show neighborhood for nodeID: "+ this.id()+ " , eles: "+ eles);
+     eles.show();*/
+//   cy.elements(this).neighborhood().show();
+/*   eles.forEach(function( ele ) {
+                  ele.show();
+                 });*/
+ /*  if(this.isNode()) {
+        var nodeID= this.id();
+        console.log("\n \n Show neighbourhood of concept: nodeID: "+ nodeID);
+        cy.edges().forEach(function( ele ) {
+                   var edgeSrc= ele.data('source');
+                   var edgeTarget= ele.data('target');
+                   console.log("edgeSrc: "+ edgeSrc +" , edgeTarget: "+ edgeTarget);
+                   if((edgeSrc === nodeID) || (edgeTarget === nodeID)) {
+                      ele.show();
+                     }
+                  });
+       }
+     else {
+       $("#infoDialog").dialog();
+       $("#infoDialog").html("Selected functionality works only on concepts and not on relations.");
+      }
+*/
+  }
