@@ -26,8 +26,8 @@
 <script src="includes/lib/springy.js"></script>
 
 <!-- <script type="text/javascript" src="includes/networkGraph_small_new.json"></script> -->
-<!--<script type="text/javascript" src="includes/networkGraph.json"></script> -->
-<script type="text/javascript" src="includes/networkGraph_20150109042806.json"></script>
+<script type="text/javascript" src="includes/networkGraph.json"></script>
+<!--<script type="text/javascript" src="includes/networkGraph_20150109042806.json"></script> -->
 <!-- <script type="text/javascript" src="includes/result_poplar.json"></script> -->
 <script src="includes/networkView_jsCode.js"></script>
 
@@ -56,7 +56,7 @@
 <hr>
 
 <div>Show concept neighbourhood: <input type="button" value="Show Neighbourhood" onclick="showNeighbourhood();">
-Search by concept value: <input type="text" id="txtSearch" placeholder="Search..." /> <input type="button" value="Search" onclick="findConcept(document.getElementById('txtSearch').value);">
+Search for concept: <input type="text" id="txtSearch" placeholder="Search..." /> <input type="button" value="Search" onclick="findConcept(document.getElementById('txtSearch').value);" title="Search by concept name">
 Reset graph: <input type="button" value="Reset" onclick="resetGraph();">
 </div>
 <br/>
