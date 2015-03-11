@@ -131,7 +131,7 @@ $(function() { // on dom ready
           'transition-duration': '0.5s'
         })
       .selector(':selected')
-      .css({ // settings for highlight nodes in case of Shift+click multi-select event.
+      .css({ // settings for highlight nodes in case of single click or Shift+click multi-select event.
         'border-width': '3px',
         'border-color': '#CCCC33' // '#333'
       });
@@ -624,6 +624,7 @@ cy.cxtmenu(contextMenu); // set Context Menu for all the core elements.
 
   // Show concept neighbourhood.
   function showNeighbourhood() {
+   console.log("Show neighborhood...");
 
    cy.nodes(':selected').neighborhood().nodes().show();
 /*
@@ -660,7 +661,7 @@ cy.cxtmenu(contextMenu); // set Context Menu for all the core elements.
   }
   
   // Show/ Hide labels for concepts and relations.
-  function showOrHideLabels() {
+ /* function showOrHideLabels() {
    console.log("cy.hideLabelsOnViewport= "+ cy.hideLabelsOnViewport);
    if(cy.hideLabelsOnViewport === "false") {
       cy.hideLabelsOnViewport= "true";
@@ -668,7 +669,7 @@ cy.cxtmenu(contextMenu); // set Context Menu for all the core elements.
    else {
       cy.hideLabelsOnViewport= "false";
      }
-  }
+  }*/
 
   function testCollections() {
    var n_id = cy.nodes().id();//data('pid');
