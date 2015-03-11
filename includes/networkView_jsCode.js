@@ -40,7 +40,7 @@
    };
 
 // On startup
-$(function(){ // on dom ready
+$(function() { // on dom ready
 //  var networkJSON= JSON.parse(graphJSON); // to parse JSON object containing node and edge data.
 //  var networkJSON= JSON.stringify(graphJSON); // if already parsed, to convert the JSON object to String.
   var networkJSON= graphJSON; // using the JSON object directly
@@ -136,8 +136,6 @@ $(function(){ // on dom ready
         'border-color': '#CCCC33' // '#333'
       });
       
-   45;
-
 // Initialise a cystoscape container instance as a Javascript object.
 /* var cy= cytoscape({
   container: document.getElementById('cy'),
@@ -420,7 +418,7 @@ cy.elements().qtip({
     maxSpotlightRadius: 10, // 38, // the maximum radius in pixels of the spotlight
     itemColor: 'white', // the colour of text in the command's content
     itemTextShadowColor: 'black', // the text shadow colour of the command's content
-    itemFontSize: 8,
+    itemFontSize: 6, //8,
     zIndex: 9999 // the z-index of the ui div
  };
 
@@ -483,7 +481,7 @@ cy.cxtmenu(contextMenu); // set Context Menu for all the core elements.
   }
 
   // Set Cose layout.
-  /* Slow and performance- hampering */
+  /* Slow and performance-hampering */
   function setCoseLayout() {
    var coseNetworkLayout= {
     name: 'cose', // CytoscapeJS Cose layout
@@ -599,6 +597,8 @@ cy.cxtmenu(contextMenu); // set Context Menu for all the core elements.
 
 //             foundElements[foundElements.length]= '#'+foundID;
 //             foundElements.add(cy.$('#'+foundID));
+
+             // select the matched concept.
              cy.$('#'+foundID).select();
             }
         }
@@ -607,7 +607,7 @@ cy.cxtmenu(contextMenu); // set Context Menu for all the core elements.
 //   foundElements.select();
   }
 
- // Export the graph as a JSON object and allow users to save it.
+ // Export the graph as a JSON object in a new Tab and allow users to save it.
   function exportAsJson() {
    console.log("cy.json: ");
    console.log(cy.json());
@@ -624,6 +624,9 @@ cy.cxtmenu(contextMenu); // set Context Menu for all the core elements.
 
   // Show concept neighbourhood.
   function showNeighbourhood() {
+
+   cy.nodes(':selected').neighborhood().nodes().show();
+/*
    var eleID;
    var neighbourArray= new Array();
    var neighbours= cy.collection();
@@ -632,56 +635,27 @@ cy.cxtmenu(contextMenu); // set Context Menu for all the core elements.
        if(ele.selected()) {
           eleID= ele.id();
           console.log("Show neighborhood for nodeID: "+ eleID);
-//          neighbours.add(ele); // add to collection
-          // this.id();
-//          ele.neighborhood.show(); // HERE.
          }
       });
-//      neighbours.neighborhood().show();
-//      neighbours.siblings().show();
+
    // Find its connected neighbours.
    cy.edges().forEach(function( edg ) {
        if(edg.data('source') === eleID) {
-          neighbourArray[neighbourArray.length]= edg.data('target');
+          neighbourArray[neighbourArray.length]= '#'+ edg.data('target');
          }
        else if(edg.data('target') === eleID) {
-          neighbourArray[neighbourArray.length]= edg.data('source');
+          neighbourArray[neighbourArray.length]= '#'+ edg.data('source');
          }
       });
-   // Add the array to the collection.
-   neighbours.add(neighbourArray);
+
+   // Add the array elements to the collection.
+   neighbourArray.forEach(function( eleNeighbour ) {
+       console.log("Neighbour found: node "+ eleNeighbour);
+     neighbours.add(eleNeighbour);
+    });
+
+   // Show neighbourhood.
    neighbours.show();
-   // Show all the nodes connected to the selected concept 'node' element.
-/*   neighbourArray.forEach(function( eleNeighbour ) {
-          eleNeighbour.show();
-         });*/
-   
-       //   this.neighborhood().show();
-   //
-//   cy.elements(this.neighborhood()).show();
-/*   var eles= cy.$(':selected').neighborhood();
-     console.log("Show neighborhood for nodeID: "+ this.id()+ " , eles: "+ eles);
-     eles.show();*/
-//   cy.elements(this).neighborhood().show();
-/*   eles.forEach(function( ele ) {
-                  ele.show();
-                 });*/
- /*  if(this.isNode()) {
-        var nodeID= this.id();
-        console.log("\n \n Show neighbourhood of concept: nodeID: "+ nodeID);
-        cy.edges().forEach(function( ele ) {
-                   var edgeSrc= ele.data('source');
-                   var edgeTarget= ele.data('target');
-                   console.log("edgeSrc: "+ edgeSrc +" , edgeTarget: "+ edgeTarget);
-                   if((edgeSrc === nodeID) || (edgeTarget === nodeID)) {
-                      ele.show();
-                     }
-                  });
-       }
-     else {
-       $("#infoDialog").dialog();
-       $("#infoDialog").html("Selected functionality works only on concepts and not on relations.");
-      }
 */
   }
   
