@@ -72,7 +72,7 @@ $(function(){ // on dom ready
     
 
   // Display 'networkJSON' elements.nodes data in console.
-  for(var j = 0; j < networkJSON.nodes.length; j++){
+/*  for(var j = 0; j < networkJSON.nodes.length; j++){
       var anno= networkJSON.nodes[j].data.annotation;
       if (anno.length>15) {
           anno= anno.substring(0,15) +"..."; 
@@ -89,7 +89,7 @@ $(function(){ // on dom ready
       console.log("JSON edge.data (id, source, target, edgeColor, label): "+ 
               networkJSON.edges[k].data.id +", "+ networkJSON.edges[k].data.source +", "+ 
               networkJSON.edges[k].data.target +", "+ networkJSON.edges[k].data.edgeColor +", "+ networkJSON.edges[k].data.label);
-     }
+     }*/
 
    // Define the stylesheet to be used for nodes & edges in the cytoscape.js container.
    var networkStylesheet= cytoscape.stylesheet()
@@ -116,9 +116,9 @@ $(function(){ // on dom ready
           'content': 'data(label)', // label for edges (arrows).
           'font-size': '8px',
           'curve-style': 'bezier', // default. /* options: bezier, unbundled-bezier, haystack (straight edges) */
-          'width': '3px', // use mapData() mapper to allow for curved edges for inter-connected nodes.
+          'width': '1px', // '3px', // use mapData() mapper to allow for curved edges for inter-connected nodes.
           'line-color': 'data(edgeColor)', // 'gray',
-          'line-style': 'solid',
+          'line-style': 'solid', // 'solid' or 'dotted' or 'dashed'
           'target-arrow-shape': 'triangle',
           'target-arrow-color': 'gray'
         })
@@ -133,7 +133,7 @@ $(function(){ // on dom ready
       .selector(':selected')
       .css({ // settings for highlight nodes in case of Shift+click multi-select event.
         'border-width': '3px',
-        'border-color': '#333'
+        'border-color': '#CCCC33' // '#333'
       });
       
    45;
@@ -170,9 +170,15 @@ $('#cy').cytoscape({
 
   // a "motion blur" effect that increases perceived performance for little or no cost.
   motionBlur: true,
+  
+  // for Touch-based gestures.
+//  selectionType: (isTouchDevice ? 'additive' : 'single'),
+  touchTapThreshold: 8,
+  desktopTapThreshold: 4,
 
   ready: function() {
    console.log('ready');
+//   testCollections();
    window.cy= this;
   }
 });
@@ -234,7 +240,7 @@ cy.nodes().forEach(function( ele ) {
   // Add these properties to this element's JSON.
   ele.data('nodeImage', eleImage);
 
-  console.log("data.nodeImage "+ ele.data('nodeImage'));
+//  console.log("data.nodeImage "+ ele.data('nodeImage'));
  });
 
  // Update the stylesheet for the Network Graph to show background images for Nodes.
@@ -482,7 +488,7 @@ cy.cxtmenu(contextMenu); // set Context Menu for all the core elements.
    var coseNetworkLayout= {
     name: 'cose', // CytoscapeJS Cose layout
     animate: false /*true*/, animationDuration: 500, avoidOverlap: true, handleDisconnected: true, 
-    boundingBox: undefined, random: false, infinite: false, ready: undefined, stop: undefined, 
+//    boundingBox: undefined, random: false, infinite: false, ready: undefined, stop: undefined, 
     roots: undefined, padding: 5 };
    cy.layout(coseNetworkLayout); // run the CoSE layout algorithm.
   }
@@ -579,6 +585,28 @@ cy.cxtmenu(contextMenu); // set Context Menu for all the core elements.
    cy.layout(gridNetworkLayout); // run the Grid layout.
   }
 
+  // Search the graph for a concept using BFS: breadthfirst search
+  function findConcept(conceptName) {
+   console.log("Search for concept value: "+ conceptName);
+   var foundID;
+//   var foundElements= cy.collection(); // new Array();
+   cy.nodes().forEach(function( ele ) {
+       if(ele.data('visibleDisplay') === 'element') {
+          if(ele.data('value').indexOf(conceptName) > -1) {
+//             foundEles.add(ele); // add to collection
+             console.log("Search found: "+ ele.data('value'));
+             foundID= ele.id(); // the found node
+
+//             foundElements[foundElements.length]= '#'+foundID;
+//             foundElements.add(cy.$('#'+foundID));
+             cy.$('#'+foundID).select();
+            }
+        }
+      });
+//   cy.$('#'+foundID).select();
+//   foundElements.select();
+  }
+
  // Export the graph as a JSON object and allow users to save it.
   function exportAsJson() {
    console.log("cy.json: ");
@@ -592,50 +620,6 @@ cy.cxtmenu(contextMenu); // set Context Menu for all the core elements.
 
    // Put the png data in an img tag.
    $('#png-eg').attr('src', png64);
-  }
-
-  // Show/ Hide labels for concepts and relations.
-  function showOrHideLabels() {
-   console.log("cy.hideLabelsOnViewport= "+ cy.hideLabelsOnViewport);
-   if(cy.hideLabelsOnViewport === "false") {
-      cy.hideLabelsOnViewport= "true";
-     }
-   else {
-      cy.hideLabelsOnViewport= "false";
-     }
-  }
-
-  // Search the graph for a concept.
-  function findConcept(conceptName) {
-   console.log("Search for concept value: "+ conceptName);
-   var foundID;
-//   var foundEles= cy.collection();
-   cy.nodes().forEach(function( ele ) {
-//       if(ele.data('visibleDisplay') === 'element') {
-          if(ele.data('value').indexOf(conceptName) > -1) {
-//             foundEles.add(ele); // add to collection
-             console.log("Value found: "+ ele.data('value'));
-             foundID= ele.id();
-            }
-//        }
-      });
-   cy.$(foundID).select();
-//   console.log("foundEles: "+ foundEles);
-//   foundEles.select(); // select the found concepts.
-
-/*   var bfs = cy.elements().bfs('#e', function(i, depth) {
-       if(this.data('visibleDisplay') === 'element') {
-          if(this.data('value') === conceptName) {
-             return true;
-            }
-         }
-   }, false);
-
-   var path = bfs.path; // path to found node
-   var found = bfs.found; // found node
-
-   // Select the path
-   path.select();*/
   }
 
   // Show concept neighbourhood.
@@ -699,4 +683,21 @@ cy.cxtmenu(contextMenu); // set Context Menu for all the core elements.
        $("#infoDialog").html("Selected functionality works only on concepts and not on relations.");
       }
 */
+  }
+  
+  // Show/ Hide labels for concepts and relations.
+  function showOrHideLabels() {
+   console.log("cy.hideLabelsOnViewport= "+ cy.hideLabelsOnViewport);
+   if(cy.hideLabelsOnViewport === "false") {
+      cy.hideLabelsOnViewport= "true";
+     }
+   else {
+      cy.hideLabelsOnViewport= "false";
+     }
+  }
+
+  function testCollections() {
+   var n_id = cy.nodes().id();//data('pid');
+
+   console.log( cy.nodes()[0].id() + ' == ' + n_id ); // pid is the first node ele's weight
   }
